@@ -1,4 +1,7 @@
 import 'package:adaptix/adaptix.dart';
+import 'package:adaptix/src/models/configs.dart';
+import 'package:adaptix/src/models/data.dart';
+import 'package:adaptix/src/models/pixel_breakpoint.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class TestSizeBreakPoint extends SizeBreakPoint {
@@ -24,9 +27,6 @@ void main() {
       breakPoints.sort((a, b) => b.compareTo(a));
       expect(breakPoints.map((e) => e.debugLabel).toList(),
           ['one', 'two', 'three']);
-      breakPoints.sort((a, b) => a.compareTo(b));
-      expect(breakPoints.map((e) => e.debugLabel).toList(),
-          ['three', 'two', 'one']);
     });
     test('Descening sort', () {
       final breakPoints = <TestSizeBreakPoint>[
@@ -44,7 +44,62 @@ void main() {
       const c = TestSizeBreakPoint(compareValue: 3, debugLabel: 'c');
       expect(a == b, true);
       expect(a == c, false);
-      ;
     });
+  });
+  test('Configs equality', () {
+    const a = AdaptixConfigs(breakpoints: [
+      ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
+      ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
+    ]);
+    const b = AdaptixConfigs(breakpoints: [
+      ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
+      ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
+    ]);
+    const c = AdaptixConfigs(breakpoints: [
+      ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
+      ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
+      ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
+    ]);
+    const d = AdaptixConfigs(breakpoints: [
+      ResponsivePixelValueBreakPoint(deviceWidth: 199, pixelScale: 1),
+      ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
+    ]);
+    expect(a.isSameAs(b), true);
+    expect(a.isSameAs(c), false);
+    expect(a.isSameAs(d), false);
+  });
+
+  test('Constraints configs', () {
+    const a = AdaptixConstraints(
+        configs: AdaptixConfigs(breakpoints: [
+          ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
+          ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
+        ]),
+        pixelScale:
+            ResponsivePixelValueBreakPoint(deviceWidth: 120, pixelScale: 1));
+    const b = AdaptixConstraints(
+        configs: AdaptixConfigs(breakpoints: [
+          ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
+          ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
+        ]),
+        pixelScale:
+            ResponsivePixelValueBreakPoint(deviceWidth: 120, pixelScale: 1));
+    const c = AdaptixConstraints(
+        configs: AdaptixConfigs(breakpoints: [
+          ResponsivePixelValueBreakPoint(deviceWidth: 201, pixelScale: 1),
+          ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
+        ]),
+        pixelScale:
+            ResponsivePixelValueBreakPoint(deviceWidth: 120, pixelScale: 1));
+    const d = AdaptixConstraints(
+        configs: AdaptixConfigs(breakpoints: [
+          ResponsivePixelValueBreakPoint(deviceWidth: 201, pixelScale: 1),
+          ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
+        ]),
+        pixelScale:
+            ResponsivePixelValueBreakPoint(deviceWidth: 121, pixelScale: 1));
+    expect(a.isSameAs(b), true);
+    expect(a.isSameAs(c), false);
+    expect(a.isSameAs(d), false);
   });
 }

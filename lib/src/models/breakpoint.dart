@@ -3,13 +3,21 @@ import 'package:meta/meta.dart';
 
 @immutable
 abstract class SizeBreakPoint<T>
-    with Comparable<SizeBreakPoint>, ComparableOperatorsMixin<SizeBreakPoint> {
+    with
+        StraighComparisonMixin,
+        Comparable<SizeBreakPoint>,
+        ComparableOperatorsMixin<SizeBreakPoint> {
   final String? debugLabel;
 
   const SizeBreakPoint({this.debugLabel});
 
   T get returnValue;
   double get compareValue;
+
+  @override
+  bool isSameAs(StraighComparisonMixin other) {
+    return other is SizeBreakPoint && other == this;
+  }
 
   @override
   int compareTo(SizeBreakPoint other) {
