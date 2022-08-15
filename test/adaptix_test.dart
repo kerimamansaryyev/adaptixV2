@@ -69,7 +69,7 @@ void main() {
     expect(a.isSameAs(d), false);
   });
 
-  test('Constraints configs', () {
+  test('Constraints equality', () {
     const a = AdaptixConstraints(
         configs: AdaptixConfigs(breakpoints: [
           ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
