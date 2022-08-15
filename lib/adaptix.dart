@@ -1,3 +1,3 @@
 library adaptix;
 
-export 'src/models/break_point.dart';
+export 'src/models/breakpoint.dart';
