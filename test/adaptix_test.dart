@@ -2,6 +2,7 @@ import 'package:adaptix/adaptix.dart';
 import 'package:adaptix/src/models/configs.dart';
 import 'package:adaptix/src/models/data.dart';
 import 'package:adaptix/src/models/pixel_breakpoint.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class TestSizeBreakPoint extends SizeBreakPoint {
@@ -70,36 +71,44 @@ void main() {
   });
 
   test('Constraints equality', () {
-    const a = AdaptixConstraints(
+    const sample = AdaptixConstraints(
         configs: AdaptixConfigs(breakpoints: [
           ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
           ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
         ]),
-        pixelScale:
-            ResponsivePixelValueBreakPoint(deviceWidth: 120, pixelScale: 1));
-    const b = AdaptixConstraints(
+        orientation: Orientation.landscape,
+        pixelScale: 1);
+    const sampleIdentical = AdaptixConstraints(
+        orientation: Orientation.landscape,
         configs: AdaptixConfigs(breakpoints: [
           ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
           ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
         ]),
-        pixelScale:
-            ResponsivePixelValueBreakPoint(deviceWidth: 120, pixelScale: 1));
-    const c = AdaptixConstraints(
+        pixelScale: 1);
+    const deviceWidthDiffers = AdaptixConstraints(
+        orientation: Orientation.landscape,
         configs: AdaptixConfigs(breakpoints: [
           ResponsivePixelValueBreakPoint(deviceWidth: 201, pixelScale: 1),
           ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
         ]),
-        pixelScale:
-            ResponsivePixelValueBreakPoint(deviceWidth: 120, pixelScale: 1));
-    const d = AdaptixConstraints(
+        pixelScale: 1);
+    const setPixelScaleDiffers = AdaptixConstraints(
+        orientation: Orientation.landscape,
         configs: AdaptixConfigs(breakpoints: [
-          ResponsivePixelValueBreakPoint(deviceWidth: 201, pixelScale: 1),
+          ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
           ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
         ]),
-        pixelScale:
-            ResponsivePixelValueBreakPoint(deviceWidth: 121, pixelScale: 1));
-    expect(a.isSameAs(b), true);
-    expect(a.isSameAs(c), false);
-    expect(a.isSameAs(d), false);
+        pixelScale: 2);
+    const orientationDiffers = AdaptixConstraints(
+        configs: AdaptixConfigs(breakpoints: [
+          ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
+          ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
+        ]),
+        pixelScale: 1,
+        orientation: Orientation.portrait);
+    expect(sample.isSameAs(sampleIdentical), true);
+    expect(sample.isSameAs(deviceWidthDiffers), false);
+    expect(sample.isSameAs(setPixelScaleDiffers), false);
+    expect(sample.isSameAs(orientationDiffers), false);
   });
 }
