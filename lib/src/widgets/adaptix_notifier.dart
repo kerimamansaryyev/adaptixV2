@@ -1,4 +1,3 @@
-import 'package:adaptix/src/models/configs.dart';
 import 'package:adaptix/src/models/data.dart';
 import 'package:flutter/widgets.dart';
 
