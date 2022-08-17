@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 
 class AdaptixInitializer extends StatefulWidget with StraighComparisonMixin {
   const AdaptixInitializer(
-      {Key? key, required this.configs, required this.builder})
+      {Key? key,
+      this.configs = AdaptixConfigs.defaultConfigs,
+      required this.builder})
       : super(key: key);
 
   final AdaptixConfigs configs;
@@ -29,7 +31,8 @@ class _AdaptixInitializerState extends State<AdaptixInitializer>
   void _setConstraints({double? width, Orientation? orientation}) {
     double scale;
     if (width != null) {
-      scale = widget.configs.breakpoints.detectPixelScale(width);
+      scale = widget.configs.breakpoints
+          .detectPixelScale(width, widget.configs.defaultPixelScale);
     } else {
       scale = _constraints.pixelScale;
     }
@@ -85,6 +88,6 @@ class _AdaptixInitializerState extends State<AdaptixInitializer>
 
   @override
   Widget build(BuildContext context) {
-    return Adaptix(data: _constraints, child: widget.builder(context));
+    return Adaptix(data: _constraints, child: Builder(builder: widget.builder));
   }
 }

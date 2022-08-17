@@ -48,26 +48,26 @@ void main() {
     });
   });
   test('Configs equality', () {
-    const a = AdaptixConfigs(breakpoints: [
+    const sample = AdaptixConfigs(breakpoints: [
       ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
       ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
     ]);
-    const b = AdaptixConfigs(breakpoints: [
+    const sampleIdentic = AdaptixConfigs(breakpoints: [
       ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
       ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
     ]);
-    const c = AdaptixConfigs(breakpoints: [
+    const manyChildren = AdaptixConfigs(breakpoints: [
       ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
       ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
       ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1)
     ]);
-    const d = AdaptixConfigs(breakpoints: [
+    const childValueDiffers = AdaptixConfigs(breakpoints: [
       ResponsivePixelValueBreakPoint(deviceWidth: 199, pixelScale: 1),
       ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
     ]);
-    expect(a.isSameAs(b), true);
-    expect(a.isSameAs(c), false);
-    expect(a.isSameAs(d), false);
+    expect(sample.isSameAs(sampleIdentic), true);
+    expect(sample.isSameAs(manyChildren), false);
+    expect(sample.isSameAs(childValueDiffers), false);
   });
 
   test('Constraints equality', () {
