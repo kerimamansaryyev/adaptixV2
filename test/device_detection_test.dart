@@ -57,7 +57,7 @@ void main() {
     });
   });
 
-  group('Close values', () {
+  group('Detecting device width with non-canonical configs + close values', () {
     final configs = AdaptixConfigs(breakpoints: const [
       ResponsivePixelValueBreakPoint(
           deviceWidth: 200, pixelScale: 1, debugLabel: 'xSmall'),
@@ -108,7 +108,9 @@ void main() {
     });
   });
 
-  group('Must not include breakpoint itself', () {
+  group(
+      'Must not include breakpoint itself while comparing through device breakpoints',
+      () {
     const xSmallWidth = AdaptixConfigs.defaultXSmallDeviceWidthBreakpoint;
     const smallWidth = AdaptixConfigs.defaultSmallDeviceWidthBreakpoint;
     const mediumWidth = AdaptixConfigs.defaultMediumDeviceWidthBreakpoint;
