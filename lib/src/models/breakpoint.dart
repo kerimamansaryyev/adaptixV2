@@ -25,5 +25,5 @@ abstract class SizeBreakPoint<T>
   }
 
   @override
-  int getHashCode() => hashCode;
+  int getHashCode();
 }

@@ -1,6 +1,6 @@
 import 'package:adaptix/src/extensions/detect_breakpoint_extension.dart';
 import 'package:adaptix/src/models/configs.dart';
-import 'package:adaptix/src/models/data.dart';
+import 'package:adaptix/src/models/constraints.dart';
 import 'package:adaptix/src/utils/comparable.dart';
 import 'package:adaptix/src/widgets/adaptix_notifier.dart';
 import 'package:flutter/material.dart';

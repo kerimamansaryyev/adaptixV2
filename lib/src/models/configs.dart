@@ -8,33 +8,57 @@ class AdaptixConfigs with StraighComparisonMixin {
   final List<ResponsivePixelValueBreakPoint> breakpoints;
   final double defaultPixelScale;
 
-  const AdaptixConfigs({required this.breakpoints, this.defaultPixelScale = 1});
+  const AdaptixConfigs._(
+      {required this.breakpoints, this.defaultPixelScale = 1});
+
+  factory AdaptixConfigs(
+          {required List<ResponsivePixelValueBreakPoint> breakpoints,
+          double defaultPixelScale = 1}) =>
+      AdaptixConfigs._(
+              breakpoints: breakpoints, defaultPixelScale: defaultPixelScale)
+          .sorted();
 
   static const defaultConfigs =
-      AdaptixConfigs(breakpoints: [], defaultPixelScale: 1);
+      AdaptixConfigs._(breakpoints: [], defaultPixelScale: 1);
+
+  static const defaultXSmallDeviceWidthBreakpoint = 380.0;
+  static const defaultSmallDeviceWidthBreakpoint = 414.0;
+  static const defaultMediumDeviceWidthBreakpoint = 600.0;
+  static const defaultTabletDeviceWidthBreakpoint = 800.0;
+  static const defaultDesktopDeviceWidthBreakpoint = 1100.0;
 
   factory AdaptixConfigs.canonical(
       {double defaultPixelScale = 1,
-      double xSmallMobileDevicePixelScale = 1,
-      double smallMobileDevicePixelScale = 1.1,
-      double mobileDevicePixelScale = 1.15,
-      double taletDevicePixelScale = 1.2,
-      double deskTopDevicePixelScale = 1.25}) {
+      double xSmallDevice = 1,
+      double smallDevice = 1.1,
+      double mediumDevice = 1.15,
+      double tabletDevicePixelScale = 1.2,
+      double desktopDevicePixelScale = 1.25}) {
     return AdaptixConfigs(breakpoints: [
       ResponsivePixelValueBreakPoint(
-          deviceWidth: 380, pixelScale: xSmallMobileDevicePixelScale),
+          deviceWidth: defaultXSmallDeviceWidthBreakpoint,
+          pixelScale: xSmallDevice,
+          debugLabel: 'xSmall'),
       ResponsivePixelValueBreakPoint(
-          deviceWidth: 414, pixelScale: smallMobileDevicePixelScale),
+          deviceWidth: defaultSmallDeviceWidthBreakpoint,
+          pixelScale: smallDevice,
+          debugLabel: 'small'),
       ResponsivePixelValueBreakPoint(
-          deviceWidth: 600, pixelScale: mobileDevicePixelScale),
+          deviceWidth: defaultMediumDeviceWidthBreakpoint,
+          pixelScale: mediumDevice,
+          debugLabel: 'medium'),
       ResponsivePixelValueBreakPoint(
-          deviceWidth: 800, pixelScale: taletDevicePixelScale),
+          deviceWidth: defaultTabletDeviceWidthBreakpoint,
+          pixelScale: tabletDevicePixelScale,
+          debugLabel: 'tablet'),
       ResponsivePixelValueBreakPoint(
-          deviceWidth: 1100, pixelScale: deskTopDevicePixelScale)
+          deviceWidth: defaultDesktopDeviceWidthBreakpoint,
+          pixelScale: desktopDevicePixelScale,
+          debugLabel: 'desktop')
     ]);
   }
 
-  AdaptixConfigs sorted() => AdaptixConfigs(
+  AdaptixConfigs sorted() => AdaptixConfigs._(
       defaultPixelScale: defaultPixelScale,
       breakpoints: breakpoints.toSet().toList()
         ..sort((a, b) => b.compareTo(a)));
@@ -42,5 +66,6 @@ class AdaptixConfigs with StraighComparisonMixin {
   @override
   bool isSameAs(StraighComparisonMixin other) =>
       other is AdaptixConfigs &&
+      other.breakpoints.length == breakpoints.length &&
       const collection.ListEquality().equals(other.breakpoints, breakpoints);
 }

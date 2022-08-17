@@ -1,4 +1,4 @@
-import 'package:adaptix/src/models/data.dart';
+import 'package:adaptix/src/models/constraints.dart';
 import 'package:adaptix/src/utils/assertions.dart';
 import 'package:flutter/widgets.dart';
 

@@ -6,7 +6,7 @@ class ResponsivePixelValueBreakPoint extends SizeBreakPoint<double> {
   final double pixelScale;
 
   const ResponsivePixelValueBreakPoint(
-      {required this.deviceWidth, required this.pixelScale});
+      {required this.deviceWidth, required this.pixelScale, super.debugLabel});
 
   @protected
   @override
@@ -15,4 +15,7 @@ class ResponsivePixelValueBreakPoint extends SizeBreakPoint<double> {
   @protected
   @override
   double get returnValue => pixelScale;
+
+  @override
+  int getHashCode() => deviceWidth.hashCode;
 }

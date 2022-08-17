@@ -40,7 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return AdaptixInitializer(builder: (context) {
-      print(1.adaptedPx(context));
       return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
