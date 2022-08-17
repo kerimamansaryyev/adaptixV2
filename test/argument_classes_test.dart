@@ -64,8 +64,13 @@ void main() {
         ResponsivePixelValueBreakPoint(deviceWidth: 199, pixelScale: 1),
         ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
       ]);
+      final decisionDiffers = AdaptixConfigs(breakpoints: const [
+        ResponsivePixelValueBreakPoint(deviceWidth: 200, pixelScale: 1),
+        ResponsivePixelValueBreakPoint(deviceWidth: 201, pixelScale: 1),
+      ], deviceWidthSideStrategy: DeviceWidthSideStrategy.useShortestSide);
       expect(sample.isSameAs(sampleIdentic), true);
       expect(sample.isSameAs(childValueDiffers), false);
+      expect(sample.isSameAs(decisionDiffers), false);
     });
     test(
         'Constructor sort must remove equal elements and sort them according to device width',

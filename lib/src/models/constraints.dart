@@ -3,8 +3,7 @@ import 'package:adaptix/src/utils/comparable.dart';
 import 'package:flutter/widgets.dart';
 
 @immutable
-class AdaptixConstraints with StraighComparisonMixin {
-  @protected
+class AdaptixConstraints with ArgsComparisonMixin {
   final AdaptixConfigs configs;
   final double pixelScale;
   final Orientation orientation;
@@ -15,7 +14,7 @@ class AdaptixConstraints with StraighComparisonMixin {
       required this.orientation});
 
   @override
-  bool isSameAs(StraighComparisonMixin other) {
+  bool isSameAs(ArgsComparisonMixin other) {
     return other is AdaptixConstraints &&
         other.configs.isSameAs(configs) &&
         other.orientation == orientation &&

@@ -16,6 +16,6 @@ mixin ComparableOperatorsMixin<T> on Comparable<T> {
   bool operator >(T other) => compareTo(other) > 0;
 }
 
-mixin StraighComparisonMixin {
-  bool isSameAs(StraighComparisonMixin other);
+mixin ArgsComparisonMixin {
+  bool isSameAs(ArgsComparisonMixin other);
 }
