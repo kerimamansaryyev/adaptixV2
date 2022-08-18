@@ -1,10 +1,10 @@
-import 'package:adaptix/src/models/configs.dart';
+import 'package:adaptix/src/models/pixel_scale_configs.dart';
 import 'package:adaptix/src/utils/comparable.dart';
 import 'package:flutter/widgets.dart';
 
 @immutable
 class AdaptixConstraints with ArgsComparisonMixin {
-  final AdaptixConfigs configs;
+  final PixelScaleConfigs configs;
   final double pixelScale;
   final Orientation orientation;
 

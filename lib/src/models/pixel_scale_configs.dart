@@ -1,4 +1,4 @@
-import 'package:adaptix/src/models/pixel_breakpoint.dart';
+import 'package:adaptix/src/models/pixel_scale_breakpoint.dart';
 import 'package:adaptix/src/utils/comparable.dart';
 import 'package:meta/meta.dart';
 import 'package:collection/collection.dart' as collection;
@@ -6,28 +6,28 @@ import 'package:collection/collection.dart' as collection;
 enum DeviceWidthSideStrategy { useShortestSide, useOriginalWidth }
 
 @immutable
-class AdaptixConfigs with ArgsComparisonMixin {
-  final List<ResponsivePixelValueBreakPoint> breakpoints;
+class PixelScaleConfigs with ArgsComparisonMixin {
+  final List<ResponsivePixelScaleBreakPoint> breakpoints;
   final double defaultPixelScale;
   final DeviceWidthSideStrategy deviceWidthSideStrategy;
 
-  const AdaptixConfigs._(
+  const PixelScaleConfigs._(
       {required this.breakpoints,
       required this.defaultPixelScale,
       required this.deviceWidthSideStrategy});
 
-  factory AdaptixConfigs(
-          {required List<ResponsivePixelValueBreakPoint> breakpoints,
+  factory PixelScaleConfigs(
+          {required List<ResponsivePixelScaleBreakPoint> breakpoints,
           DeviceWidthSideStrategy deviceWidthSideStrategy =
               DeviceWidthSideStrategy.useOriginalWidth,
           double defaultPixelScale = 1}) =>
-      AdaptixConfigs._(
+      PixelScaleConfigs._(
               deviceWidthSideStrategy: deviceWidthSideStrategy,
               breakpoints: breakpoints,
               defaultPixelScale: defaultPixelScale)
           .sorted();
 
-  static const defaultConfigs = AdaptixConfigs._(
+  static const defaultConfigs = PixelScaleConfigs._(
       breakpoints: [],
       defaultPixelScale: 1,
       deviceWidthSideStrategy: DeviceWidthSideStrategy.useOriginalWidth);
@@ -38,7 +38,7 @@ class AdaptixConfigs with ArgsComparisonMixin {
   static const defaultTabletDeviceWidthBreakpoint = 800.0;
   static const defaultDesktopDeviceWidthBreakpoint = 1100.0;
 
-  factory AdaptixConfigs.canonical(
+  factory PixelScaleConfigs.canonical(
       {double defaultPixelScale = 1,
       double xSmallDevice = 1,
       double smallDevice = 1.1,
@@ -47,33 +47,33 @@ class AdaptixConfigs with ArgsComparisonMixin {
       double desktopDevicePixelScale = 1.25,
       DeviceWidthSideStrategy deviceWidthSideStrategy =
           DeviceWidthSideStrategy.useOriginalWidth}) {
-    return AdaptixConfigs(
+    return PixelScaleConfigs(
         deviceWidthSideStrategy: deviceWidthSideStrategy,
         breakpoints: [
-          ResponsivePixelValueBreakPoint(
+          ResponsivePixelScaleBreakPoint(
               deviceWidth: defaultXSmallDeviceWidthBreakpoint,
               pixelScale: xSmallDevice,
               debugLabel: 'xSmall'),
-          ResponsivePixelValueBreakPoint(
+          ResponsivePixelScaleBreakPoint(
               deviceWidth: defaultSmallDeviceWidthBreakpoint,
               pixelScale: smallDevice,
               debugLabel: 'small'),
-          ResponsivePixelValueBreakPoint(
+          ResponsivePixelScaleBreakPoint(
               deviceWidth: defaultMediumDeviceWidthBreakpoint,
               pixelScale: mediumDevice,
               debugLabel: 'medium'),
-          ResponsivePixelValueBreakPoint(
+          ResponsivePixelScaleBreakPoint(
               deviceWidth: defaultTabletDeviceWidthBreakpoint,
               pixelScale: tabletDevicePixelScale,
               debugLabel: 'tablet'),
-          ResponsivePixelValueBreakPoint(
+          ResponsivePixelScaleBreakPoint(
               deviceWidth: defaultDesktopDeviceWidthBreakpoint,
               pixelScale: desktopDevicePixelScale,
               debugLabel: 'desktop')
         ]);
   }
 
-  AdaptixConfigs sorted() => AdaptixConfigs._(
+  PixelScaleConfigs sorted() => PixelScaleConfigs._(
       defaultPixelScale: defaultPixelScale,
       deviceWidthSideStrategy: deviceWidthSideStrategy,
       breakpoints: breakpoints.toSet().toList()
@@ -81,7 +81,7 @@ class AdaptixConfigs with ArgsComparisonMixin {
 
   @override
   bool isSameAs(ArgsComparisonMixin other) =>
-      other is AdaptixConfigs &&
+      other is PixelScaleConfigs &&
       other.breakpoints.length == breakpoints.length &&
       const collection.ListEquality().equals(other.breakpoints, breakpoints) &&
       other.deviceWidthSideStrategy == deviceWidthSideStrategy;

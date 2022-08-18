@@ -1,8 +1,8 @@
-import 'package:adaptix/src/models/pixel_breakpoint.dart';
+import 'package:adaptix/src/models/pixel_scale_breakpoint.dart';
 import 'package:meta/meta.dart';
 
-extension DetectBreakpointExtension on List<ResponsivePixelValueBreakPoint> {
-  ResponsivePixelValueBreakPoint? _detectBreakpoint(double deviceWidth) {
+extension DetectBreakpointExtension on List<ResponsivePixelScaleBreakPoint> {
+  ResponsivePixelScaleBreakPoint? _detectBreakpoint(double deviceWidth) {
     if (isEmpty) {
       return null;
     } else if (deviceWidth < first.deviceWidth) {

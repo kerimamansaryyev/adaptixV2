@@ -1,10 +1,10 @@
 import 'package:adaptix/src/extensions/detect_breakpoint_extension.dart';
-import 'package:adaptix/src/models/configs.dart';
-import 'package:adaptix/src/models/pixel_breakpoint.dart';
+import 'package:adaptix/src/models/pixel_scale_configs.dart';
+import 'package:adaptix/src/models/pixel_scale_breakpoint.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  final configs = AdaptixConfigs.canonical();
+  final configs = PixelScaleConfigs.canonical();
   group(
       'Must return breakpoint label according to given device width (parameters are not at an edge)',
       () {
@@ -15,42 +15,42 @@ void main() {
     const tabletWidth = 820.0;
     const desktopWidth = 1300.0;
     test(
-        '$xSmallWidth < ${AdaptixConfigs.defaultXSmallDeviceWidthBreakpoint} = xSmall',
+        '$xSmallWidth < ${PixelScaleConfigs.defaultXSmallDeviceWidthBreakpoint} = xSmall',
         () {
       expect(configs.breakpoints.detectDeviceTypeByDebugLabel(xSmallWidth),
           'xSmall');
     });
 
     test(
-        '$xSmallWidth2 < ${AdaptixConfigs.defaultSmallDeviceWidthBreakpoint} = xSmall',
+        '$xSmallWidth2 < ${PixelScaleConfigs.defaultSmallDeviceWidthBreakpoint} = xSmall',
         () {
       expect(configs.breakpoints.detectDeviceTypeByDebugLabel(xSmallWidth2),
           'xSmall');
     });
 
     test(
-        '$smallWidth < ${AdaptixConfigs.defaultMediumDeviceWidthBreakpoint} = small',
+        '$smallWidth < ${PixelScaleConfigs.defaultMediumDeviceWidthBreakpoint} = small',
         () {
       expect(configs.breakpoints.detectDeviceTypeByDebugLabel(smallWidth),
           'small');
     });
 
     test(
-        '$mediumWidth < ${AdaptixConfigs.defaultTabletDeviceWidthBreakpoint} = medium',
+        '$mediumWidth < ${PixelScaleConfigs.defaultTabletDeviceWidthBreakpoint} = medium',
         () {
       expect(configs.breakpoints.detectDeviceTypeByDebugLabel(mediumWidth),
           'medium');
     });
 
     test(
-        '$tabletWidth < ${AdaptixConfigs.defaultDesktopDeviceWidthBreakpoint} = tablet',
+        '$tabletWidth < ${PixelScaleConfigs.defaultDesktopDeviceWidthBreakpoint} = tablet',
         () {
       expect(configs.breakpoints.detectDeviceTypeByDebugLabel(tabletWidth),
           'tablet');
     });
 
     test(
-        '$desktopWidth >= ${AdaptixConfigs.defaultDesktopDeviceWidthBreakpoint} = desktop',
+        '$desktopWidth >= ${PixelScaleConfigs.defaultDesktopDeviceWidthBreakpoint} = desktop',
         () {
       expect(configs.breakpoints.detectDeviceTypeByDebugLabel(desktopWidth),
           'desktop');
@@ -58,16 +58,16 @@ void main() {
   });
 
   group('Detecting device width with non-canonical configs + close values', () {
-    final configs = AdaptixConfigs(breakpoints: const [
-      ResponsivePixelValueBreakPoint(
+    final configs = PixelScaleConfigs(breakpoints: const [
+      ResponsivePixelScaleBreakPoint(
           deviceWidth: 200, pixelScale: 1, debugLabel: 'xSmall'),
-      ResponsivePixelValueBreakPoint(
+      ResponsivePixelScaleBreakPoint(
           deviceWidth: 201, pixelScale: 1.1, debugLabel: 'small'),
-      ResponsivePixelValueBreakPoint(
+      ResponsivePixelScaleBreakPoint(
           deviceWidth: 202, pixelScale: 1.15, debugLabel: 'medium'),
-      ResponsivePixelValueBreakPoint(
+      ResponsivePixelScaleBreakPoint(
           deviceWidth: 203, pixelScale: 1.2, debugLabel: 'tablet'),
-      ResponsivePixelValueBreakPoint(
+      ResponsivePixelScaleBreakPoint(
           deviceWidth: 204, pixelScale: 1.25, debugLabel: 'desktop')
     ]);
 
@@ -111,41 +111,41 @@ void main() {
   group(
       'Must not include breakpoint itself while comparing through device breakpoints',
       () {
-    const xSmallWidth = AdaptixConfigs.defaultXSmallDeviceWidthBreakpoint;
-    const smallWidth = AdaptixConfigs.defaultSmallDeviceWidthBreakpoint;
-    const mediumWidth = AdaptixConfigs.defaultMediumDeviceWidthBreakpoint;
-    const tabletWidth = AdaptixConfigs.defaultTabletDeviceWidthBreakpoint;
-    const desktopWidth = AdaptixConfigs.defaultDesktopDeviceWidthBreakpoint;
+    const xSmallWidth = PixelScaleConfigs.defaultXSmallDeviceWidthBreakpoint;
+    const smallWidth = PixelScaleConfigs.defaultSmallDeviceWidthBreakpoint;
+    const mediumWidth = PixelScaleConfigs.defaultMediumDeviceWidthBreakpoint;
+    const tabletWidth = PixelScaleConfigs.defaultTabletDeviceWidthBreakpoint;
+    const desktopWidth = PixelScaleConfigs.defaultDesktopDeviceWidthBreakpoint;
     test(
-        '$xSmallWidth < ${AdaptixConfigs.defaultSmallDeviceWidthBreakpoint} = xSmall',
+        '$xSmallWidth < ${PixelScaleConfigs.defaultSmallDeviceWidthBreakpoint} = xSmall',
         () {
       expect(configs.breakpoints.detectDeviceTypeByDebugLabel(xSmallWidth),
           'xSmall');
     });
 
     test(
-        '$smallWidth < ${AdaptixConfigs.defaultMediumDeviceWidthBreakpoint} = small',
+        '$smallWidth < ${PixelScaleConfigs.defaultMediumDeviceWidthBreakpoint} = small',
         () {
       expect(configs.breakpoints.detectDeviceTypeByDebugLabel(smallWidth),
           'small');
     });
 
     test(
-        '$mediumWidth < ${AdaptixConfigs.defaultTabletDeviceWidthBreakpoint} = medium',
+        '$mediumWidth < ${PixelScaleConfigs.defaultTabletDeviceWidthBreakpoint} = medium',
         () {
       expect(configs.breakpoints.detectDeviceTypeByDebugLabel(mediumWidth),
           'medium');
     });
 
     test(
-        '$tabletWidth < ${AdaptixConfigs.defaultDesktopDeviceWidthBreakpoint} = tablet',
+        '$tabletWidth < ${PixelScaleConfigs.defaultDesktopDeviceWidthBreakpoint} = tablet',
         () {
       expect(configs.breakpoints.detectDeviceTypeByDebugLabel(tabletWidth),
           'tablet');
     });
 
     test(
-        '$desktopWidth >= ${AdaptixConfigs.defaultDesktopDeviceWidthBreakpoint} = desktop',
+        '$desktopWidth >= ${PixelScaleConfigs.defaultDesktopDeviceWidthBreakpoint} = desktop',
         () {
       expect(configs.breakpoints.detectDeviceTypeByDebugLabel(desktopWidth),
           'desktop');

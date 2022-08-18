@@ -1,5 +1,5 @@
 import 'package:adaptix/src/extensions/detect_breakpoint_extension.dart';
-import 'package:adaptix/src/models/configs.dart';
+import 'package:adaptix/src/models/pixel_scale_configs.dart';
 import 'package:adaptix/src/models/constraints.dart';
 import 'package:adaptix/src/utils/comparable.dart';
 import 'package:adaptix/src/widgets/adaptix_notifier.dart';
@@ -9,11 +9,11 @@ import 'package:flutter/material.dart';
 class AdaptixInitializer extends StatefulWidget with ArgsComparisonMixin {
   const AdaptixInitializer(
       {Key? key,
-      this.configs = AdaptixConfigs.defaultConfigs,
+      this.configs = PixelScaleConfigs.defaultConfigs,
       required this.builder})
       : super(key: key);
 
-  final AdaptixConfigs configs;
+  final PixelScaleConfigs configs;
   final WidgetBuilder builder;
 
   @override
@@ -48,15 +48,14 @@ class _AdaptixInitializerState extends State<AdaptixInitializer>
     }
   }
 
-  double _getWidth() {
+  Size _getSize() {
     final window = WidgetsBinding.instance.window;
-    return (window.physicalSize / window.devicePixelRatio).width;
+    return (window.physicalSize / window.devicePixelRatio);
   }
 
-  double _getHeight() {
-    final window = WidgetsBinding.instance.window;
-    return (window.physicalSize / window.devicePixelRatio).height;
-  }
+  double _getWidth() => _getSize().width;
+
+  double _getHeight() => _getSize().height;
 
   double _getBreakpointSide() {
     switch (widget.configs.deviceWidthSideStrategy) {

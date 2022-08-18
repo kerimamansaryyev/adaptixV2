@@ -46,7 +46,7 @@ class InitializerTestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdaptixInitializer(
-        configs: AdaptixConfigs.canonical(deviceWidthSideStrategy: strategy),
+        configs: PixelScaleConfigs.canonical(deviceWidthSideStrategy: strategy),
         builder: (context) {
           return Scaffold(
             appBar: AppBar(
