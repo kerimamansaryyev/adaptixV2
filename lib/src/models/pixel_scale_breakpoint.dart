@@ -1,11 +1,11 @@
 import 'package:adaptix/src/models/breakpoint.dart';
 import 'package:meta/meta.dart';
 
-class ResponsivePixelScaleBreakPoint extends SizeBreakPoint<double> {
+class ResponsivePixelScaleBreakpoint extends SizeBreakpoint<double> {
   final double deviceWidth;
   final double pixelScale;
 
-  const ResponsivePixelScaleBreakPoint(
+  const ResponsivePixelScaleBreakpoint(
       {required this.deviceWidth, required this.pixelScale, super.debugLabel});
 
   @protected

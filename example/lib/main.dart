@@ -32,7 +32,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return AdaptixInitializer(
-        configs: PixelScaleConfigs.canonical(),
+        configs:
+            AdaptixConfigs(pixelScaleConfigs: PixelScaleConfigs.canonical()),
         builder: (context) {
           return Scaffold(
             appBar: AppBar(

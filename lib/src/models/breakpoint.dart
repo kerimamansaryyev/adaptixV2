@@ -2,25 +2,25 @@ import 'package:adaptix/src/utils/comparable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-abstract class SizeBreakPoint<T>
+abstract class SizeBreakpoint<T>
     with
         ArgsComparisonMixin,
-        Comparable<SizeBreakPoint>,
-        ComparableOperatorsMixin<SizeBreakPoint> {
+        Comparable<SizeBreakpoint>,
+        ComparableOperatorsMixin<SizeBreakpoint> {
   final String? debugLabel;
 
-  const SizeBreakPoint({this.debugLabel});
+  const SizeBreakpoint({this.debugLabel});
 
   T get returnValue;
   double get compareValue;
 
   @override
   bool isSameAs(ArgsComparisonMixin other) {
-    return other is SizeBreakPoint && other == this;
+    return other is SizeBreakpoint && other == this;
   }
 
   @override
-  int compareTo(SizeBreakPoint other) {
+  int compareTo(SizeBreakpoint other) {
     return other.compareValue.compareTo(compareValue);
   }
 

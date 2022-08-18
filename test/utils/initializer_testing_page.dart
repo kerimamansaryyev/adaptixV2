@@ -1,4 +1,5 @@
 import 'package:adaptix/adaptix.dart';
+import 'package:adaptix/src/models/adaptix_configs.dart';
 import 'package:flutter/material.dart';
 
 class InitializerTestApp extends StatefulWidget {
@@ -46,7 +47,9 @@ class InitializerTestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdaptixInitializer(
-        configs: PixelScaleConfigs.canonical(deviceWidthSideStrategy: strategy),
+        configs: AdaptixConfigs(
+            pixelScaleConfigs:
+                PixelScaleConfigs.canonical(deviceWidthSideStrategy: strategy)),
         builder: (context) {
           return Scaffold(
             appBar: AppBar(

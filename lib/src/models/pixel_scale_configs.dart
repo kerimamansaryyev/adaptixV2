@@ -1,3 +1,5 @@
+import 'package:adaptix/src/models/adaptix_configs.dart';
+import 'package:adaptix/src/models/device_detect_mixin.dart';
 import 'package:adaptix/src/models/pixel_scale_breakpoint.dart';
 import 'package:adaptix/src/utils/comparable.dart';
 import 'package:meta/meta.dart';
@@ -6,8 +8,13 @@ import 'package:collection/collection.dart' as collection;
 enum DeviceWidthSideStrategy { useShortestSide, useOriginalWidth }
 
 @immutable
-class PixelScaleConfigs with ArgsComparisonMixin {
-  final List<ResponsivePixelScaleBreakPoint> breakpoints;
+class PixelScaleConfigs
+    with
+        ArgsComparisonMixin,
+        DeviceDetectMixin<ResponsivePixelScaleBreakpoint> {
+  @override
+  final List<ResponsivePixelScaleBreakpoint> breakpoints;
+
   final double defaultPixelScale;
   final DeviceWidthSideStrategy deviceWidthSideStrategy;
 
@@ -17,7 +24,7 @@ class PixelScaleConfigs with ArgsComparisonMixin {
       required this.deviceWidthSideStrategy});
 
   factory PixelScaleConfigs(
-          {required List<ResponsivePixelScaleBreakPoint> breakpoints,
+          {required List<ResponsivePixelScaleBreakpoint> breakpoints,
           DeviceWidthSideStrategy deviceWidthSideStrategy =
               DeviceWidthSideStrategy.useOriginalWidth,
           double defaultPixelScale = 1}) =>
@@ -32,52 +39,52 @@ class PixelScaleConfigs with ArgsComparisonMixin {
       defaultPixelScale: 1,
       deviceWidthSideStrategy: DeviceWidthSideStrategy.useOriginalWidth);
 
-  static const defaultXSmallDeviceWidthBreakpoint = 380.0;
-  static const defaultSmallDeviceWidthBreakpoint = 414.0;
-  static const defaultMediumDeviceWidthBreakpoint = 600.0;
-  static const defaultTabletDeviceWidthBreakpoint = 800.0;
-  static const defaultDesktopDeviceWidthBreakpoint = 1100.0;
+  static const defaultXSmallDevicePixelScale = 1.0;
+  static const defaultSmallDevicePixelScale = 1.1;
+  static const defaultMediumDevicePixelScale = 1.15;
+  static const defaultTabletDevicePixelScale = 1.2;
+  static const defaultDesktopDevicePixelScale = 1.25;
 
   factory PixelScaleConfigs.canonical(
       {double defaultPixelScale = 1,
-      double xSmallDevice = 1,
-      double smallDevice = 1.1,
-      double mediumDevice = 1.15,
-      double tabletDevicePixelScale = 1.2,
-      double desktopDevicePixelScale = 1.25,
+      double xSmallDevice = defaultXSmallDevicePixelScale,
+      double smallDevice = defaultSmallDevicePixelScale,
+      double mediumDevice = defaultMediumDevicePixelScale,
+      double tabletDevicePixelScale = defaultTabletDevicePixelScale,
+      double desktopDevicePixelScale = defaultDesktopDevicePixelScale,
       DeviceWidthSideStrategy deviceWidthSideStrategy =
           DeviceWidthSideStrategy.useOriginalWidth}) {
     return PixelScaleConfigs(
         deviceWidthSideStrategy: deviceWidthSideStrategy,
         breakpoints: [
-          ResponsivePixelScaleBreakPoint(
-              deviceWidth: defaultXSmallDeviceWidthBreakpoint,
+          ResponsivePixelScaleBreakpoint(
+              deviceWidth: AdaptixConfigs.defaultXSmallDeviceWidthBreakpoint,
               pixelScale: xSmallDevice,
-              debugLabel: 'xSmall'),
-          ResponsivePixelScaleBreakPoint(
-              deviceWidth: defaultSmallDeviceWidthBreakpoint,
+              debugLabel: AdaptixConfigs.xSmallDeviceTestDebugLabel),
+          ResponsivePixelScaleBreakpoint(
+              deviceWidth: AdaptixConfigs.defaultSmallDeviceWidthBreakpoint,
               pixelScale: smallDevice,
-              debugLabel: 'small'),
-          ResponsivePixelScaleBreakPoint(
-              deviceWidth: defaultMediumDeviceWidthBreakpoint,
+              debugLabel: AdaptixConfigs.smallDeviceTestDebugLabel),
+          ResponsivePixelScaleBreakpoint(
+              deviceWidth: AdaptixConfigs.defaultMediumDeviceWidthBreakpoint,
               pixelScale: mediumDevice,
-              debugLabel: 'medium'),
-          ResponsivePixelScaleBreakPoint(
-              deviceWidth: defaultTabletDeviceWidthBreakpoint,
+              debugLabel: AdaptixConfigs.mediumDeviceTestDebugLabel),
+          ResponsivePixelScaleBreakpoint(
+              deviceWidth: AdaptixConfigs.defaultTabletDeviceWidthBreakpoint,
               pixelScale: tabletDevicePixelScale,
-              debugLabel: 'tablet'),
-          ResponsivePixelScaleBreakPoint(
-              deviceWidth: defaultDesktopDeviceWidthBreakpoint,
+              debugLabel: AdaptixConfigs.tabletDeviceTestDebugLabel),
+          ResponsivePixelScaleBreakpoint(
+              deviceWidth: AdaptixConfigs.defaultDesktopDeviceWidthBreakpoint,
               pixelScale: desktopDevicePixelScale,
-              debugLabel: 'desktop')
+              debugLabel: AdaptixConfigs.desktopDeviceTestDebugLabel)
         ]);
   }
 
+  @override
   PixelScaleConfigs sorted() => PixelScaleConfigs._(
       defaultPixelScale: defaultPixelScale,
       deviceWidthSideStrategy: deviceWidthSideStrategy,
-      breakpoints: breakpoints.toSet().toList()
-        ..sort((a, b) => b.compareTo(a)));
+      breakpoints: sortedBreakpoints());
 
   @override
   bool isSameAs(ArgsComparisonMixin other) =>

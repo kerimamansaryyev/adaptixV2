@@ -1,9 +1,8 @@
 import 'package:adaptix/src/models/breakpoint.dart';
 import 'package:adaptix/src/models/pixel_scale_breakpoint.dart';
-import 'package:meta/meta.dart';
 
-extension DetectBreakpointExtension on Iterable<SizeBreakPoint> {
-  SizeBreakPoint? detectBreakpoint(double deviceWidth) {
+extension DetectBreakpointExtension on Iterable<SizeBreakpoint> {
+  SizeBreakpoint? detectBreakpoint(double deviceWidth) {
     if (isEmpty) {
       return null;
     } else if (deviceWidth < first.compareValue) {
@@ -21,14 +20,10 @@ extension DetectBreakpointExtension on Iterable<SizeBreakPoint> {
 }
 
 extension DetectBreakpointPixelScaleExtension
-    on Iterable<ResponsivePixelScaleBreakPoint> {
-  ResponsivePixelScaleBreakPoint? _detectBreakPoint(double deviceWidth) =>
-      detectBreakpoint(deviceWidth) as ResponsivePixelScaleBreakPoint?;
+    on Iterable<ResponsivePixelScaleBreakpoint> {
+  ResponsivePixelScaleBreakpoint? _detectBreakpoint(double deviceWidth) =>
+      detectBreakpoint(deviceWidth) as ResponsivePixelScaleBreakpoint?;
 
   double detectPixelScale(double deviceWidth, [double defaultScale = 1]) =>
-      _detectBreakPoint(deviceWidth)?.pixelScale ?? defaultScale;
-
-  @visibleForTesting
-  String? detectDeviceTypeByDebugLabel(double deviceWidth) =>
-      _detectBreakPoint(deviceWidth)?.debugLabel;
+      _detectBreakpoint(deviceWidth)?.pixelScale ?? defaultScale;
 }

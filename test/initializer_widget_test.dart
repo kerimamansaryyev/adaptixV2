@@ -70,7 +70,8 @@ void main() {
 
     final adaptixPortrait = tester.widget(find.byType(Adaptix)) as Adaptix;
     expect(adaptixPortrait.data.orientation, Orientation.portrait);
-    expect(adaptixPortrait.data.configs.deviceWidthSideStrategy,
+    expect(
+        adaptixPortrait.data.configs.pixelScaleConfigs.deviceWidthSideStrategy,
         DeviceWidthSideStrategy.useShortestSide);
 
     // Tear down to the default strategy
@@ -100,7 +101,8 @@ void main() {
 
     final adaptixLandscape = tester.widget(find.byType(Adaptix)) as Adaptix;
     expect(adaptixLandscape.data.orientation, Orientation.portrait);
-    expect(adaptixLandscape.data.configs.deviceWidthSideStrategy,
+    expect(
+        adaptixLandscape.data.configs.pixelScaleConfigs.deviceWidthSideStrategy,
         DeviceWidthSideStrategy.useShortestSide);
   });
 }

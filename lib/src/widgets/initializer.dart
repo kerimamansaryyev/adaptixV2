@@ -1,7 +1,9 @@
 import 'package:adaptix/src/extensions/detect_breakpoint_extension.dart';
+import 'package:adaptix/src/models/adaptix_configs.dart';
 import 'package:adaptix/src/models/pixel_scale_configs.dart';
 import 'package:adaptix/src/models/constraints.dart';
 import 'package:adaptix/src/utils/comparable.dart';
+import 'package:adaptix/src/utils/resizable_mixin.dart';
 import 'package:adaptix/src/widgets/adaptix_notifier.dart';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
@@ -9,11 +11,12 @@ import 'package:flutter/material.dart';
 class AdaptixInitializer extends StatefulWidget with ArgsComparisonMixin {
   const AdaptixInitializer(
       {Key? key,
-      this.configs = PixelScaleConfigs.defaultConfigs,
+      this.configs = const AdaptixConfigs(
+          pixelScaleConfigs: PixelScaleConfigs.defaultConfigs),
       required this.builder})
       : super(key: key);
 
-  final PixelScaleConfigs configs;
+  final AdaptixConfigs configs;
   final WidgetBuilder builder;
 
   @override
@@ -26,15 +29,15 @@ class AdaptixInitializer extends StatefulWidget with ArgsComparisonMixin {
 }
 
 class _AdaptixInitializerState extends State<AdaptixInitializer>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, ResizableMixin {
   late AdaptixConstraints _constraints;
 
   void _setConstraints(
       {double? width, Orientation? orientation, bool forceSet = false}) {
     double scale;
     if (width != null) {
-      scale = widget.configs.breakpoints
-          .detectPixelScale(width, widget.configs.defaultPixelScale);
+      scale = widget.configs.pixelScaleConfigs.breakpoints.detectPixelScale(
+          width, widget.configs.pixelScaleConfigs.defaultPixelScale);
     } else {
       scale = _constraints.pixelScale;
     }
@@ -48,35 +51,13 @@ class _AdaptixInitializerState extends State<AdaptixInitializer>
     }
   }
 
-  Size _getSize() {
-    final window = WidgetsBinding.instance.window;
-    return (window.physicalSize / window.devicePixelRatio);
-  }
-
-  double _getWidth() => _getSize().width;
-
-  double _getHeight() => _getSize().height;
-
   double _getBreakpointSide() {
-    switch (widget.configs.deviceWidthSideStrategy) {
+    switch (widget.configs.pixelScaleConfigs.deviceWidthSideStrategy) {
       case DeviceWidthSideStrategy.useShortestSide:
-        return math.min(_getWidth(), _getHeight());
+        return math.min(getWidth(), getHeight());
       case DeviceWidthSideStrategy.useOriginalWidth:
-        return _getWidth();
+        return getWidth();
     }
-  }
-
-  Orientation _getOrientation() {
-    final Orientation orientation = _getWidth() > _getHeight()
-        ? Orientation.landscape
-        : Orientation.portrait;
-    return orientation;
-  }
-
-  @override
-  void didChangeMetrics() {
-    super.didChangeMetrics();
-    _setConstraints(width: _getBreakpointSide());
   }
 
   @override
@@ -93,7 +74,7 @@ class _AdaptixInitializerState extends State<AdaptixInitializer>
     WidgetsBinding.instance.addObserver(this);
     _setConstraints(
         width: _getBreakpointSide(),
-        orientation: _getOrientation(),
+        orientation: getOrientation(),
         forceSet: true);
   }
 
@@ -106,5 +87,10 @@ class _AdaptixInitializerState extends State<AdaptixInitializer>
   @override
   Widget build(BuildContext context) {
     return Adaptix(data: _constraints, child: Builder(builder: widget.builder));
+  }
+
+  @override
+  void onConstraintsChanged(ResizableMixinConstraints constraints) {
+    _setConstraints(width: _getBreakpointSide());
   }
 }

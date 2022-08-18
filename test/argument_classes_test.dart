@@ -1,18 +1,17 @@
 import 'package:adaptix/adaptix.dart';
-import 'package:adaptix/src/models/pixel_scale_configs.dart';
+import 'package:adaptix/src/models/adaptix_configs.dart';
 import 'package:adaptix/src/models/constraints.dart';
-import 'package:adaptix/src/models/pixel_scale_breakpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class TestSizeBreakPoint extends SizeBreakPoint {
+class TestSizeBreakpoint extends SizeBreakpoint {
   @override
   final double compareValue;
 
   @override
   Null get returnValue => null;
 
-  const TestSizeBreakPoint(
+  const TestSizeBreakpoint(
       {required this.compareValue, required super.debugLabel})
       : super();
 
@@ -23,50 +22,50 @@ class TestSizeBreakPoint extends SizeBreakPoint {
 void main() {
   group('Testing breakpoints', () {
     test('Ascending sort', () {
-      final breakPoints = <TestSizeBreakPoint>[
-        const TestSizeBreakPoint(compareValue: 200, debugLabel: 'two'),
-        const TestSizeBreakPoint(compareValue: 100, debugLabel: 'one'),
-        const TestSizeBreakPoint(compareValue: 300, debugLabel: 'three'),
+      final breakPoints = <TestSizeBreakpoint>[
+        const TestSizeBreakpoint(compareValue: 200, debugLabel: 'two'),
+        const TestSizeBreakpoint(compareValue: 100, debugLabel: 'one'),
+        const TestSizeBreakpoint(compareValue: 300, debugLabel: 'three'),
       ];
       breakPoints.sort((a, b) => b.compareTo(a));
       expect(breakPoints.map((e) => e.debugLabel).toList(),
           ['one', 'two', 'three']);
     });
     test('Descening sort', () {
-      final breakPoints = <TestSizeBreakPoint>[
-        const TestSizeBreakPoint(compareValue: 200, debugLabel: 'two'),
-        const TestSizeBreakPoint(compareValue: 100, debugLabel: 'one'),
-        const TestSizeBreakPoint(compareValue: 300, debugLabel: 'three'),
+      final breakPoints = <TestSizeBreakpoint>[
+        const TestSizeBreakpoint(compareValue: 200, debugLabel: 'two'),
+        const TestSizeBreakpoint(compareValue: 100, debugLabel: 'one'),
+        const TestSizeBreakpoint(compareValue: 300, debugLabel: 'three'),
       ];
       breakPoints.sort((a, b) => a.compareTo(b));
       expect(breakPoints.map((e) => e.debugLabel).toList(),
           ['three', 'two', 'one']);
     });
     test('Equality', () {
-      const a = TestSizeBreakPoint(compareValue: 2, debugLabel: 'a');
-      const b = TestSizeBreakPoint(compareValue: 2, debugLabel: 'b');
-      const c = TestSizeBreakPoint(compareValue: 3, debugLabel: 'c');
+      const a = TestSizeBreakpoint(compareValue: 2, debugLabel: 'a');
+      const b = TestSizeBreakpoint(compareValue: 2, debugLabel: 'b');
+      const c = TestSizeBreakpoint(compareValue: 3, debugLabel: 'c');
       expect(a == b, true);
       expect(a == c, false);
     });
   });
-  group('Configs', () {
+  group('Pixel scale configs', () {
     test('Equality', () {
       final sample = PixelScaleConfigs(breakpoints: const [
-        ResponsivePixelScaleBreakPoint(deviceWidth: 200, pixelScale: 1),
-        ResponsivePixelScaleBreakPoint(deviceWidth: 201, pixelScale: 1)
+        ResponsivePixelScaleBreakpoint(deviceWidth: 200, pixelScale: 1),
+        ResponsivePixelScaleBreakpoint(deviceWidth: 201, pixelScale: 1)
       ]);
       final sampleIdentic = PixelScaleConfigs(breakpoints: const [
-        ResponsivePixelScaleBreakPoint(deviceWidth: 200, pixelScale: 1),
-        ResponsivePixelScaleBreakPoint(deviceWidth: 201, pixelScale: 1)
+        ResponsivePixelScaleBreakpoint(deviceWidth: 200, pixelScale: 1),
+        ResponsivePixelScaleBreakpoint(deviceWidth: 201, pixelScale: 1)
       ]);
       final childValueDiffers = PixelScaleConfigs(breakpoints: const [
-        ResponsivePixelScaleBreakPoint(deviceWidth: 199, pixelScale: 1),
-        ResponsivePixelScaleBreakPoint(deviceWidth: 200, pixelScale: 1),
+        ResponsivePixelScaleBreakpoint(deviceWidth: 199, pixelScale: 1),
+        ResponsivePixelScaleBreakpoint(deviceWidth: 200, pixelScale: 1),
       ]);
       final decisionDiffers = PixelScaleConfigs(breakpoints: const [
-        ResponsivePixelScaleBreakPoint(deviceWidth: 200, pixelScale: 1),
-        ResponsivePixelScaleBreakPoint(deviceWidth: 201, pixelScale: 1),
+        ResponsivePixelScaleBreakpoint(deviceWidth: 200, pixelScale: 1),
+        ResponsivePixelScaleBreakpoint(deviceWidth: 201, pixelScale: 1),
       ], deviceWidthSideStrategy: DeviceWidthSideStrategy.useShortestSide);
       expect(sample.isSameAs(sampleIdentic), true);
       expect(sample.isSameAs(childValueDiffers), false);
@@ -76,57 +75,63 @@ void main() {
         'Constructor sort must remove equal elements and sort them according to device width',
         () {
       const sample = [
-        ResponsivePixelScaleBreakPoint(deviceWidth: 200, pixelScale: 1),
-        ResponsivePixelScaleBreakPoint(deviceWidth: 200, pixelScale: 1)
+        ResponsivePixelScaleBreakpoint(deviceWidth: 200, pixelScale: 1),
+        ResponsivePixelScaleBreakpoint(deviceWidth: 200, pixelScale: 1)
       ];
       final configs = PixelScaleConfigs(breakpoints: sample);
       expect(configs.breakpoints.length, 1);
       const sample2 = [
-        ResponsivePixelScaleBreakPoint(deviceWidth: 201, pixelScale: 1),
-        ResponsivePixelScaleBreakPoint(deviceWidth: 200, pixelScale: 1)
+        ResponsivePixelScaleBreakpoint(deviceWidth: 201, pixelScale: 1),
+        ResponsivePixelScaleBreakpoint(deviceWidth: 200, pixelScale: 1)
       ];
       final configs2 = PixelScaleConfigs(breakpoints: sample2);
       expect(configs2.breakpoints, const [
-        ResponsivePixelScaleBreakPoint(deviceWidth: 200, pixelScale: 1),
-        ResponsivePixelScaleBreakPoint(deviceWidth: 201, pixelScale: 1)
+        ResponsivePixelScaleBreakpoint(deviceWidth: 200, pixelScale: 1),
+        ResponsivePixelScaleBreakpoint(deviceWidth: 201, pixelScale: 1)
       ]);
     });
   });
 
   test('Constraints equality', () {
     final sample = AdaptixConstraints(
-        configs: PixelScaleConfigs(breakpoints: const [
-          ResponsivePixelScaleBreakPoint(deviceWidth: 200, pixelScale: 1),
-          ResponsivePixelScaleBreakPoint(deviceWidth: 201, pixelScale: 1)
-        ]),
+        configs: AdaptixConfigs(
+            pixelScaleConfigs: PixelScaleConfigs(breakpoints: const [
+          ResponsivePixelScaleBreakpoint(deviceWidth: 200, pixelScale: 1),
+          ResponsivePixelScaleBreakpoint(deviceWidth: 201, pixelScale: 1)
+        ])),
         orientation: Orientation.landscape,
         pixelScale: 1);
     final sampleIdentical = AdaptixConstraints(
         orientation: Orientation.landscape,
-        configs: PixelScaleConfigs(breakpoints: const [
-          ResponsivePixelScaleBreakPoint(deviceWidth: 200, pixelScale: 1),
-          ResponsivePixelScaleBreakPoint(deviceWidth: 201, pixelScale: 1)
-        ]),
+        configs: AdaptixConfigs(
+            pixelScaleConfigs: PixelScaleConfigs(breakpoints: const [
+          ResponsivePixelScaleBreakpoint(deviceWidth: 200, pixelScale: 1),
+          ResponsivePixelScaleBreakpoint(deviceWidth: 201, pixelScale: 1)
+        ])),
         pixelScale: 1);
     final deviceWidthDiffers = AdaptixConstraints(
         orientation: Orientation.landscape,
-        configs: PixelScaleConfigs(breakpoints: const [
-          ResponsivePixelScaleBreakPoint(deviceWidth: 202, pixelScale: 1),
-          ResponsivePixelScaleBreakPoint(deviceWidth: 200, pixelScale: 1)
-        ]),
+        configs: AdaptixConfigs(
+          pixelScaleConfigs: PixelScaleConfigs(breakpoints: const [
+            ResponsivePixelScaleBreakpoint(deviceWidth: 202, pixelScale: 1),
+            ResponsivePixelScaleBreakpoint(deviceWidth: 200, pixelScale: 1)
+          ]),
+        ),
         pixelScale: 1);
     final setPixelScaleDiffers = AdaptixConstraints(
         orientation: Orientation.landscape,
-        configs: PixelScaleConfigs(breakpoints: const [
-          ResponsivePixelScaleBreakPoint(deviceWidth: 200, pixelScale: 1),
-          ResponsivePixelScaleBreakPoint(deviceWidth: 201, pixelScale: 1)
-        ]),
+        configs: AdaptixConfigs(
+            pixelScaleConfigs: PixelScaleConfigs(breakpoints: const [
+          ResponsivePixelScaleBreakpoint(deviceWidth: 200, pixelScale: 1),
+          ResponsivePixelScaleBreakpoint(deviceWidth: 201, pixelScale: 1)
+        ])),
         pixelScale: 2);
     final orientationDiffers = AdaptixConstraints(
-        configs: PixelScaleConfigs(breakpoints: const [
-          ResponsivePixelScaleBreakPoint(deviceWidth: 200, pixelScale: 1),
-          ResponsivePixelScaleBreakPoint(deviceWidth: 201, pixelScale: 1)
-        ]),
+        configs: AdaptixConfigs(
+            pixelScaleConfigs: PixelScaleConfigs(breakpoints: const [
+          ResponsivePixelScaleBreakpoint(deviceWidth: 200, pixelScale: 1),
+          ResponsivePixelScaleBreakpoint(deviceWidth: 201, pixelScale: 1)
+        ])),
         pixelScale: 1,
         orientation: Orientation.portrait);
     expect(sample.isSameAs(sampleIdentical), true);
