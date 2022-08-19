@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:adaptix/adaptix.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,28 +30,29 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return AdaptixInitializer(
-        configs:
-            AdaptixConfigs(pixelScaleConfigs: PixelScaleConfigs.canonical()),
-        builder: (context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(widget.title),
-            ),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    color: Colors.red,
-                    width: 50.adaptedPx(context),
-                    height: 50.adaptedPx(context),
-                    child: Text('${50.adaptedPx(context).round()} px'),
-                  )
-                ],
-              ),
-            ),
-          );
-        });
+    return const SizedBox();
+    //   return AdaptixInitializer(
+    //       configs:
+    //           AdaptixConfigs(pixelScaleConfigs: PixelScaleConfigs.canonical()),
+    //       builder: (context) {
+    //         return Scaffold(
+    //           appBar: AppBar(
+    //             title: Text(widget.title),
+    //           ),
+    //           body: Center(
+    //             child: Column(
+    //               mainAxisAlignment: MainAxisAlignment.center,
+    //               children: <Widget>[
+    //                 Container(
+    //                   color: Colors.red,
+    //                   width: 50.adaptedPx(context),
+    //                   height: 50.adaptedPx(context),
+    //                   child: Text('${50.adaptedPx(context).round()} px'),
+    //                 )
+    //               ],
+    //             ),
+    //           ),
+    //         );
+    //       });
   }
 }

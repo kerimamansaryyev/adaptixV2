@@ -1,29 +1,45 @@
 import 'package:adaptix/src/utils/comparable.dart';
 import 'package:meta/meta.dart';
 
-@immutable
-abstract class SizeBreakpoint<T>
-    with
-        ArgsComparisonMixin,
-        Comparable<SizeBreakpoint>,
-        ComparableOperatorsMixin<SizeBreakpoint> {
-  final String? debugLabel;
+enum CanonicalResponsiveBreakpoints implements ResponsiveBreakpoint {
+  xSmall(380),
+  small(414),
+  medium(600),
+  tablet(800),
+  desktop(1100);
 
-  const SizeBreakpoint({this.debugLabel});
+  @override
+  final double value;
 
-  T get returnValue;
-  double get compareValue;
+  @override
+  String get key => name;
 
   @override
   bool isSameAs(ArgsComparisonMixin other) {
-    return other is SizeBreakpoint && other == this;
+    return other is ResponsiveBreakpoint &&
+        other.value == value &&
+        other.key == key;
   }
 
   @override
-  int compareTo(SizeBreakpoint other) {
-    return other.compareValue.compareTo(compareValue);
-  }
+  String get debugLabel => name;
+
+  const CanonicalResponsiveBreakpoints(this.value);
+}
+
+@immutable
+class ResponsiveBreakpoint with ArgsComparisonMixin {
+  final double value;
+  final String? debugLabel;
+  final String key;
+
+  const ResponsiveBreakpoint(
+      {required this.value, required this.key, this.debugLabel});
 
   @override
-  int getHashCode();
+  bool isSameAs(ArgsComparisonMixin other) {
+    return other is ResponsiveBreakpoint &&
+        other.value == value &&
+        other.key == key;
+  }
 }
