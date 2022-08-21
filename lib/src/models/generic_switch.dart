@@ -14,9 +14,9 @@ class GenericResponsiveSwitch<T> {
           {required T defaultValue,
           List<GenericResponsiveRule> rules = const []}) =>
       GenericResponsiveSwitch._(defaultValue: defaultValue, rules: rules)
-          ._sorted();
+          ._filtered();
 
-  GenericResponsiveSwitch<T> _sorted() => GenericResponsiveSwitch._(
+  GenericResponsiveSwitch<T> _filtered() => GenericResponsiveSwitch._(
       defaultValue: defaultValue, rules: rules.iterableRemoveSame().toList());
 }
 
@@ -25,8 +25,7 @@ class GenericResponsiveRule<T> with ArgsComparisonMixin {
   final String responsiveBreakpointKey;
   final T value;
 
-  const GenericResponsiveRule(
-      {required this.responsiveBreakpointKey, required this.value});
+  const GenericResponsiveRule(this.responsiveBreakpointKey, this.value);
 
   @override
   bool isSameAs(ArgsComparisonMixin other) =>
