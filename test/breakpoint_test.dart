@@ -1,5 +1,5 @@
 import 'package:adaptix/src/models/breakpoint.dart';
-import 'package:adaptix/src/extensions/breakpoint_exception.dart';
+import 'package:adaptix/src/extensions/breakpoint_extension.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -26,6 +26,7 @@ void main() {
     final breakpoints = [
       const ResponsiveBreakpoint(value: 120, key: 'mobile'),
       const ResponsiveBreakpoint(value: 120, key: 'mobile'),
+      const ResponsiveBreakpoint(value: 120, key: 'mobile1'),
       const ResponsiveBreakpoint(value: 121, key: 'mobile'),
       ResponsiveBreakpoint(
           value: CanonicalResponsiveBreakpoints.small.value,

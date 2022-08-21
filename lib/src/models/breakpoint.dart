@@ -22,6 +22,9 @@ enum CanonicalResponsiveBreakpoints implements ResponsiveBreakpoint {
   }
 
   @override
+  bool hasSameValueAs(ResponsiveBreakpoint other) => other.value == value;
+
+  @override
   String get debugLabel => name;
 
   const CanonicalResponsiveBreakpoints(this.value);
@@ -42,4 +45,6 @@ class ResponsiveBreakpoint with ArgsComparisonMixin {
         other.value == value &&
         other.key == key;
   }
+
+  bool hasSameValueAs(ResponsiveBreakpoint other) => other.value == value;
 }

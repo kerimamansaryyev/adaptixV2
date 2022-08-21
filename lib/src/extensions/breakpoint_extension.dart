@@ -1,3 +1,4 @@
+import 'package:adaptix/src/extensions/comparison.dart';
 import 'package:adaptix/src/models/breakpoint.dart';
 
 extension ResponsiveBreakpointIterableExtension
@@ -18,20 +19,12 @@ extension ResponsiveBreakpointIterableExtension
     return last;
   }
 
-  bool _containsBreakpoint(ResponsiveBreakpoint breakpoint) {
-    for (var element in this) {
-      if (element.isSameAs(breakpoint)) {
-        return true;
-      }
-      continue;
-    }
-    return false;
-  }
-
   Iterable<ResponsiveBreakpoint> iterableRemoveSame() sync* {
     final found = <ResponsiveBreakpoint>[];
     for (var element in this) {
-      if (found._containsBreakpoint(element)) {
+      if (found.containsComparable<ResponsiveBreakpoint>((elementPred) =>
+          elementPred.isSameAs(element) ||
+          elementPred.hasSameValueAs(element))) {
         continue;
       } else {
         found.add(element);
