@@ -1,3 +1,4 @@
+import 'package:adaptix/src/exceptions/device_detection.dart';
 import 'package:adaptix/src/models/breakpoint.dart';
 import 'package:adaptix/src/extensions/breakpoint.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -5,6 +6,10 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   const sampleBreakpoints = CanonicalResponsiveBreakpoint.values;
   group('Breakpoint tests', () {
+    test('Throws exception if list is empty', () {
+      expect(() => <ResponsiveBreakpoint>[].detectBreakpoint(120),
+          throwsA(isA<ResponsiveBreakpointsListEmptyException>()));
+    });
     test(
         'value <= ${CanonicalResponsiveBreakpoint.xSmall.debugLabel}  => ${CanonicalResponsiveBreakpoint.xSmall.debugLabel}',
         () {
@@ -16,7 +21,7 @@ void main() {
           CanonicalResponsiveBreakpoint.xSmall);
     });
     test(
-        'value <= ${CanonicalResponsiveBreakpoint.small.debugLabel} && value > ${CanonicalResponsiveBreakpoint.xSmall.debugLabel}  => ${CanonicalResponsiveBreakpoint.small.debugLabel}',
+        'value >= ${CanonicalResponsiveBreakpoint.small.debugLabel} && value < ${CanonicalResponsiveBreakpoint.medium.debugLabel}  => ${CanonicalResponsiveBreakpoint.small.debugLabel}',
         () {
       final smaller = CanonicalResponsiveBreakpoint.small.value - 1;
       final equal = CanonicalResponsiveBreakpoint.small.value;
@@ -26,7 +31,7 @@ void main() {
           CanonicalResponsiveBreakpoint.small);
     });
     test(
-        'value <= ${CanonicalResponsiveBreakpoint.medium.debugLabel} && value > ${CanonicalResponsiveBreakpoint.small.debugLabel}  => ${CanonicalResponsiveBreakpoint.medium.debugLabel}',
+        'value >= ${CanonicalResponsiveBreakpoint.medium.debugLabel} && value < ${CanonicalResponsiveBreakpoint.tablet.debugLabel}  => ${CanonicalResponsiveBreakpoint.medium.debugLabel}',
         () {
       final smaller = CanonicalResponsiveBreakpoint.medium.value - 1;
       final equal = CanonicalResponsiveBreakpoint.medium.value;
@@ -36,7 +41,7 @@ void main() {
           CanonicalResponsiveBreakpoint.medium);
     });
     test(
-        'value <= ${CanonicalResponsiveBreakpoint.tablet.debugLabel} && value > ${CanonicalResponsiveBreakpoint.medium.debugLabel}  => ${CanonicalResponsiveBreakpoint.tablet.debugLabel}',
+        'value >= ${CanonicalResponsiveBreakpoint.tablet.debugLabel} && value < ${CanonicalResponsiveBreakpoint.desktop.debugLabel}  => ${CanonicalResponsiveBreakpoint.tablet.debugLabel}',
         () {
       final smaller = CanonicalResponsiveBreakpoint.tablet.value - 1;
       final equal = CanonicalResponsiveBreakpoint.tablet.value;
@@ -46,7 +51,7 @@ void main() {
           CanonicalResponsiveBreakpoint.tablet);
     });
     test(
-        'value <= ${CanonicalResponsiveBreakpoint.desktop.debugLabel} && value > ${CanonicalResponsiveBreakpoint.tablet.debugLabel}  => ${CanonicalResponsiveBreakpoint.desktop.debugLabel}',
+        'value >= ${CanonicalResponsiveBreakpoint.desktop.debugLabel} && value < ${CanonicalResponsiveBreakpoint.tablet.debugLabel}  => ${CanonicalResponsiveBreakpoint.desktop.debugLabel}',
         () {
       final smaller = CanonicalResponsiveBreakpoint.desktop.value - 1;
       final equal = CanonicalResponsiveBreakpoint.desktop.value;

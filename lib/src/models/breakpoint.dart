@@ -1,18 +1,47 @@
+import 'package:adaptix/src/models/generic_switch.dart';
 import 'package:adaptix/src/utils/comparable.dart';
 import 'package:meta/meta.dart';
 
 enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
-  xSmall(380),
-  small(414),
-  medium(600),
-  tablet(800),
-  desktop(1100);
+  xSmall(380, xSmallKey),
+  small(414, smallKey),
+  medium(600, mediumKey),
+  tablet(800, tabletKey),
+  desktop(1100, desktopKey);
+
+  static const xSmallKey = 'xSmall';
+  static const smallKey = 'small';
+  static const mediumKey = 'medium';
+  static const tabletKey = 'tablet';
+  static const desktopKey = 'desktop';
+
+  static const xSmallPixelScale = 1.0;
+  static const smallPixelScale = 1.1;
+  static const mediumPixelScale = 1.15;
+  static const tabletPixelScale = 1.2;
+  static const desktopPixelScale = 1.25;
+
+  static const canonicalPixelScaleRules = [
+    GenericResponsiveRule(xSmallKey, xSmallPixelScale),
+    GenericResponsiveRule(smallKey, smallPixelScale),
+    GenericResponsiveRule(mediumKey, mediumPixelScale),
+    GenericResponsiveRule(tabletKey, tabletPixelScale),
+    GenericResponsiveRule(desktopKey, desktopPixelScale)
+  ];
+
+  static const canonicalRulesRaw = <String, double>{
+    xSmallKey: xSmallPixelScale,
+    smallKey: smallPixelScale,
+    mediumKey: mediumPixelScale,
+    tabletKey: tabletPixelScale,
+    desktopKey: desktopPixelScale
+  };
 
   @override
   final double value;
 
   @override
-  String get key => name;
+  final String key;
 
   @override
   bool isSameAs(ArgsComparisonMixin other) {
@@ -27,7 +56,15 @@ enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
   @override
   String get debugLabel => name;
 
-  const CanonicalResponsiveBreakpoint(this.value);
+  static List<GenericResponsiveRule<double>> get testPixelRules => [
+        GenericResponsiveRule(xSmall.key, 1),
+        GenericResponsiveRule(small.key, 1),
+        GenericResponsiveRule(medium.key, 1),
+        GenericResponsiveRule(tablet.key, 1),
+        GenericResponsiveRule(desktop.key, 1)
+      ];
+
+  const CanonicalResponsiveBreakpoint(this.value, this.key);
 }
 
 @immutable
@@ -38,6 +75,11 @@ class ResponsiveBreakpoint with ArgsComparisonMixin {
 
   const ResponsiveBreakpoint(
       {required this.value, required this.key, this.debugLabel});
+
+  static const ResponsiveBreakpoint none =
+      ResponsiveBreakpoint(value: 0, key: noneResponsiveBreakpointKey);
+
+  static const noneResponsiveBreakpointKey = 'none';
 
   @override
   bool isSameAs(ArgsComparisonMixin other) {

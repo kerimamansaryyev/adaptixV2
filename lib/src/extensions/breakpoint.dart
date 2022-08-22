@@ -1,11 +1,12 @@
+import 'package:adaptix/src/exceptions/device_detection.dart';
 import 'package:adaptix/src/extensions/comparison.dart';
 import 'package:adaptix/src/models/breakpoint.dart';
 
 extension ResponsiveBreakpointIterableExtension
     on Iterable<ResponsiveBreakpoint> {
-  ResponsiveBreakpoint? detectBreakpoint(num deviceWidth) {
+  ResponsiveBreakpoint detectBreakpoint(num deviceWidth) {
     if (isEmpty) {
-      return null;
+      throw ResponsiveBreakpointsListEmptyException();
     } else if (deviceWidth < first.value) {
       return first;
     }

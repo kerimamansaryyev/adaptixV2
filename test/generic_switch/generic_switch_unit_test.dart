@@ -2,7 +2,7 @@ import 'package:adaptix/src/models/generic_switch.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('Generic switch and rules equality and filtering', () {
+  group('Generic switch rules equality and filtering', () {
     const rule1 = GenericResponsiveRule('mobile', 1);
     const rule2 = GenericResponsiveRule('mobile', 1);
     const rule3 = GenericResponsiveRule('tablet', 1);
@@ -14,7 +14,18 @@ void main() {
     test('Filtering and removing non-unique rules', () {
       final genericSwitch = GenericResponsiveSwitch(
           defaultValue: 1, rules: const [rule1, rule2, rule3]);
-      expect(genericSwitch.rules.length, 2);
+      expect(genericSwitch.rulesTest.length, 2);
+    });
+  });
+  group('Generic switch equality', () {
+    test('Equality of generic switch is managed as default by Dart', () {
+      const rule1 = GenericResponsiveRule('mobile', 1);
+      const rule2 = GenericResponsiveRule('mobile', 1);
+      final switch1 =
+          GenericResponsiveSwitch(defaultValue: 1, rules: const [rule1, rule2]);
+      final switch2 =
+          GenericResponsiveSwitch(defaultValue: 1, rules: const [rule1, rule2]);
+      expect(switch1 != switch2, true);
     });
   });
 }

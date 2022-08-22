@@ -4,6 +4,8 @@ import 'breakpoint_test.dart' as breakpoint_test;
 import 'generic_switch/generic_switch_unit_test.dart'
     as generic_switch_unit_test;
 import 'device_detection_test.dart' as device_detection_test;
+import 'adaptix_initializer_integration_test.dart'
+    as adaptix_initializer_integration_test;
 
 void main() {
   adaptix_configs_test.main();
@@ -11,4 +13,5 @@ void main() {
   breakpoint_test.main();
   generic_switch_unit_test.main();
   device_detection_test.main();
+  adaptix_initializer_integration_test.main();
 }

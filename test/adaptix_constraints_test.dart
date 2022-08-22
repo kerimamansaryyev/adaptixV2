@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'adaptix_configs_test.dart' as adaptix_configs_test;
 
 void main() {
-  test('Testing AdaptixConstraints equality', () {
+  test('Testing $AdaptixConstraints equality', () {
     final constraints = AdaptixConstraints(
         breakpoint: const ResponsiveBreakpoint(value: 120, key: 'mobile'),
         orientation: Orientation.landscape,
