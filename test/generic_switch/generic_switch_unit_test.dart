@@ -2,7 +2,7 @@ import 'package:adaptix/src/models/generic_switch.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('Equality and filtering', () {
+  group('Generic switch and rules equality and filtering', () {
     const rule1 = GenericResponsiveRule('mobile', 1);
     const rule2 = GenericResponsiveRule('mobile', 1);
     const rule3 = GenericResponsiveRule('tablet', 1);

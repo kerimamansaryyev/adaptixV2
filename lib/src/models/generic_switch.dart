@@ -5,7 +5,9 @@ import 'package:meta/meta.dart';
 @immutable
 class GenericResponsiveSwitch<T> {
   final T defaultValue;
-  final List<GenericResponsiveRule> rules;
+
+  @protected
+  final Map<String, T> rules;
 
   const GenericResponsiveSwitch._(
       {required this.defaultValue, required this.rules});
@@ -13,11 +15,11 @@ class GenericResponsiveSwitch<T> {
   factory GenericResponsiveSwitch(
           {required T defaultValue,
           List<GenericResponsiveRule> rules = const []}) =>
-      GenericResponsiveSwitch._(defaultValue: defaultValue, rules: rules)
-          ._filtered();
-
-  GenericResponsiveSwitch<T> _filtered() => GenericResponsiveSwitch._(
-      defaultValue: defaultValue, rules: rules.iterableRemoveSame().toList());
+      GenericResponsiveSwitch._(defaultValue: defaultValue, rules: <String, T>{
+        for (var rule
+            in rules.iterableRemoveSame().cast<GenericResponsiveRule<T>>())
+          rule.responsiveBreakpointKey: rule.value
+      });
 }
 
 @immutable

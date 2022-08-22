@@ -46,5 +46,12 @@ class ResponsiveBreakpoint with ArgsComparisonMixin {
         other.key == key;
   }
 
+  @override
+  bool operator ==(other) =>
+      other is ResponsiveBreakpoint && hashCode == other.hashCode;
+
+  @override
+  int get hashCode => Object.hashAll([value.hashCode, key.hashCode]);
+
   bool hasSameValueAs(ResponsiveBreakpoint other) => other.value == value;
 }
