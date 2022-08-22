@@ -3,11 +3,11 @@ import 'package:adaptix/src/utils/comparable.dart';
 import 'package:meta/meta.dart';
 
 enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
-  xSmall(380, xSmallKey),
-  small(414, smallKey),
-  medium(600, mediumKey),
-  tablet(800, tabletKey),
-  desktop(1100, desktopKey);
+  xSmall(280, xSmallKey),
+  small(320, smallKey),
+  medium(414, mediumKey),
+  tablet(720, tabletKey),
+  desktop(110, desktopKey);
 
   static const xSmallKey = 'xSmall';
   static const smallKey = 'small';
