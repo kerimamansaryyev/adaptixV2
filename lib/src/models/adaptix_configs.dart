@@ -1,4 +1,4 @@
-import 'package:adaptix/src/extensions/breakpoint_extension.dart';
+import 'package:adaptix/src/extensions/breakpoint.dart';
 import 'package:adaptix/src/models/breakpoint.dart';
 import 'package:adaptix/src/utils/comparable.dart';
 import 'package:meta/meta.dart';

@@ -3,15 +3,15 @@ import 'package:adaptix/src/models/breakpoint.dart';
 
 extension ResponsiveBreakpointIterableExtension
     on Iterable<ResponsiveBreakpoint> {
-  ResponsiveBreakpoint? detectBreakpoint(double deviceWidth) {
+  ResponsiveBreakpoint? detectBreakpoint(num deviceWidth) {
     if (isEmpty) {
       return null;
-    } else if (deviceWidth <= first.value) {
+    } else if (deviceWidth < first.value) {
       return first;
     }
 
     for (int i = 1; i < length; i++) {
-      if (deviceWidth <= elementAt(i).value) {
+      if (deviceWidth < elementAt(i).value) {
         return elementAt(i - 1);
       }
     }

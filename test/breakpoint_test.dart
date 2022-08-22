@@ -1,5 +1,5 @@
 import 'package:adaptix/src/models/breakpoint.dart';
-import 'package:adaptix/src/extensions/breakpoint_extension.dart';
+import 'package:adaptix/src/extensions/breakpoint.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -17,9 +17,9 @@ void main() {
 
   test('Test transequality between canonical breakpoint and non-canonical', () {
     final nonCanonical = ResponsiveBreakpoint(
-        value: CanonicalResponsiveBreakpoints.small.value,
-        key: CanonicalResponsiveBreakpoints.small.key);
-    expect(nonCanonical.isSameAs(CanonicalResponsiveBreakpoints.small), true);
+        value: CanonicalResponsiveBreakpoint.small.value,
+        key: CanonicalResponsiveBreakpoint.small.key);
+    expect(nonCanonical.isSameAs(CanonicalResponsiveBreakpoint.small), true);
   });
 
   test('Must return only unique elements from iterable', () {
@@ -29,9 +29,9 @@ void main() {
       const ResponsiveBreakpoint(value: 120, key: 'mobile1'),
       const ResponsiveBreakpoint(value: 121, key: 'mobile'),
       ResponsiveBreakpoint(
-          value: CanonicalResponsiveBreakpoints.small.value,
-          key: CanonicalResponsiveBreakpoints.small.key),
-      CanonicalResponsiveBreakpoints.small
+          value: CanonicalResponsiveBreakpoint.small.value,
+          key: CanonicalResponsiveBreakpoint.small.key),
+      CanonicalResponsiveBreakpoint.small
     ].iterableRemoveSame();
     expect(breakpoints.length, 3);
   });

@@ -1,7 +1,7 @@
 import 'package:adaptix/src/utils/comparable.dart';
 import 'package:meta/meta.dart';
 
-enum CanonicalResponsiveBreakpoints implements ResponsiveBreakpoint {
+enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
   xSmall(380),
   small(414),
   medium(600),
@@ -27,7 +27,7 @@ enum CanonicalResponsiveBreakpoints implements ResponsiveBreakpoint {
   @override
   String get debugLabel => name;
 
-  const CanonicalResponsiveBreakpoints(this.value);
+  const CanonicalResponsiveBreakpoint(this.value);
 }
 
 @immutable
