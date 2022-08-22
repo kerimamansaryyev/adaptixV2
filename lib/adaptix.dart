@@ -8,3 +8,4 @@ export 'src/models/generic_switch.dart';
 export 'src/widgets/adaptix.dart';
 export 'src/widgets/adaptix_initializer.dart';
 export 'src/extensions/size_fraction.dart';
+export 'src/extensions/context.dart';

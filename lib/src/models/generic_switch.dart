@@ -14,6 +14,15 @@ class CanonicPixelResponsiveScaleSwitch
 }
 
 @immutable
+class GenericResponsiveSwitchArgs<T> {
+  final T defaultValue;
+  final List<GenericResponsiveRule<T>> rules;
+
+  const GenericResponsiveSwitchArgs(
+      {required this.defaultValue, this.rules = const []});
+}
+
+@immutable
 class GenericResponsiveSwitch<T> with ArgsComparisonMixin {
   final T defaultValue;
 
@@ -30,14 +39,15 @@ class GenericResponsiveSwitch<T> with ArgsComparisonMixin {
   const GenericResponsiveSwitch._(
       {required this.defaultValue, required this.rules});
 
-  factory GenericResponsiveSwitch(
-          {required T defaultValue,
-          List<GenericResponsiveRule> rules = const []}) =>
-      GenericResponsiveSwitch._(defaultValue: defaultValue, rules: <String, T>{
-        for (var rule
-            in rules.iterableRemoveSame().cast<GenericResponsiveRule<T>>())
-          rule.responsiveBreakpointKey: rule.value
-      });
+  factory GenericResponsiveSwitch(GenericResponsiveSwitchArgs<T> arguments) =>
+      GenericResponsiveSwitch._(
+          defaultValue: arguments.defaultValue,
+          rules: <String, T>{
+            for (var rule in arguments.rules
+                .iterableRemoveSame()
+                .cast<GenericResponsiveRule<T>>())
+              rule.responsiveBreakpointKey: rule.value
+          });
 
   @override
   bool isSameAs(ArgsComparisonMixin other) =>

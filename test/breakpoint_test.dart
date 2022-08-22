@@ -1,6 +1,9 @@
 import 'package:adaptix/src/models/breakpoint.dart';
 import 'package:adaptix/src/extensions/breakpoint.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:collection/collection.dart';
+
+const _listEquality = ListEquality();
 
 void main() {
   test('Testing breakpoint equality', () {
@@ -34,5 +37,63 @@ void main() {
       CanonicalResponsiveBreakpoint.small
     ].iterableRemoveSame();
     expect(breakpoints.length, 3);
+  });
+
+  group('Static methods are matching with value objects', () {
+    test('Key matches with value object name', () {
+      final vObjectKeys = CanonicalResponsiveBreakpoint.values
+          .map((element) => element.name)
+          .toList();
+      expect(
+          _listEquality.equals(vObjectKeys,
+              CanonicalResponsiveBreakpoint.canonicalBreakpointKeys),
+          true);
+      expect(CanonicalResponsiveBreakpoint.canonicalBreakpointKeys.length,
+          vObjectKeys.length);
+    });
+    test('Keys match with value-object name', () {
+      final vObjectKeys = CanonicalResponsiveBreakpoint.values
+          .map((element) => element.name)
+          .toList();
+      expect(
+          _listEquality.equals(vObjectKeys,
+              CanonicalResponsiveBreakpoint.canonicalBreakpointKeys),
+          true);
+      expect(CanonicalResponsiveBreakpoint.canonicalBreakpointKeys.length,
+          vObjectKeys.length);
+    });
+    test('Rules keys match with value-object names', () {
+      final vObjectKeys = CanonicalResponsiveBreakpoint.values
+          .map((element) => element.name)
+          .toList();
+      final ruleKeys = CanonicalResponsiveBreakpoint.canonicalPixelScaleRules
+          .map((element) => element.responsiveBreakpointKey)
+          .toList();
+      expect(_listEquality.equals(vObjectKeys, ruleKeys), true);
+      expect(ruleKeys.length, vObjectKeys.length);
+    });
+    test('Raw rules keys match with value-object names', () {
+      final vObjectKeys = CanonicalResponsiveBreakpoint.values
+          .map((element) => element.name)
+          .toList();
+      final ruleKeys =
+          CanonicalResponsiveBreakpoint.canonicalRulesRaw.keys.toList();
+      expect(_listEquality.equals(vObjectKeys, ruleKeys), true);
+      expect(ruleKeys.length, vObjectKeys.length);
+    });
+
+    test('Pixel scales number matches with number of value objects', () {
+      expect(CanonicalResponsiveBreakpoint.values.length,
+          CanonicalResponsiveBreakpoint.canonicalPixelScales.length);
+    });
+
+    test('Rules number matches with number of value objects', () {
+      expect(
+          CanonicalResponsiveBreakpoint.createCanonicalSwitchArguments(
+                  defaultValue: 1)
+              .rules
+              .length,
+          CanonicalResponsiveBreakpoint.values.length);
+    });
   });
 }

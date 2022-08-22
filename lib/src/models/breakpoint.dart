@@ -21,6 +21,40 @@ enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
   static const tabletPixelScale = 1.2;
   static const desktopPixelScale = 1.25;
 
+  static GenericResponsiveSwitchArgs<T> createCanonicalSwitchArguments<T>(
+      {required T defaultValue,
+      T? xSmall,
+      T? small,
+      T? medium,
+      T? tablet,
+      T? desktop}) {
+    return GenericResponsiveSwitchArgs<T>(defaultValue: defaultValue, rules: [
+      GenericResponsiveRule(xSmallKey, xSmall ?? defaultValue),
+      GenericResponsiveRule(smallKey, small ?? defaultValue),
+      GenericResponsiveRule(mediumKey, medium ?? defaultValue),
+      GenericResponsiveRule(tabletKey, tablet ?? defaultValue),
+      GenericResponsiveRule(desktopKey, desktop ?? defaultValue)
+    ]);
+  }
+
+  @visibleForTesting
+  static const canonicalPixelScales = [
+    xSmallPixelScale,
+    smallPixelScale,
+    mediumPixelScale,
+    tabletPixelScale,
+    desktopPixelScale,
+  ];
+
+  @visibleForTesting
+  static const canonicalBreakpointKeys = [
+    xSmallKey,
+    smallKey,
+    mediumKey,
+    tabletKey,
+    desktopKey
+  ];
+
   static const canonicalPixelScaleRules = [
     GenericResponsiveRule(xSmallKey, xSmallPixelScale),
     GenericResponsiveRule(smallKey, smallPixelScale),

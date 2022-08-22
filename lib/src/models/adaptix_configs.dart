@@ -39,7 +39,8 @@ class AdaptixConfigs with ArgsComparisonMixin {
     return AdaptixConfigs._(
         strategy: strategy,
         pixelScaleSwitch: GenericResponsiveSwitch<double>(
-            defaultValue: defaultPixelScale, rules: pixelScaleRules),
+            GenericResponsiveSwitchArgs(
+                defaultValue: defaultPixelScale, rules: pixelScaleRules)),
         breakpoints: breakpoints
             .iterableRemoveSame()
             .sorted((a, b) => a.value.compareTo(b.value))
