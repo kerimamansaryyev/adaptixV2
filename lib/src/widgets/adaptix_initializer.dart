@@ -38,6 +38,7 @@ class _AdaptixInitializerState extends State<AdaptixInitializer>
     }
     final newConstraints = AdaptixConstraints(
         configs: widget.configs,
+        size: getSize(),
         breakpoint: breakpoint,
         orientation: getOrientation());
     if (forceSet || !newConstraints.isSameAs(_constraints)) {
