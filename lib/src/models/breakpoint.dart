@@ -7,7 +7,7 @@ enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
   small(320, smallKey),
   medium(414, mediumKey),
   tablet(720, tabletKey),
-  desktop(1024, desktopKey);
+  desktop(1020, desktopKey);
 
   static const xSmallKey = 'xSmall';
   static const smallKey = 'small';
