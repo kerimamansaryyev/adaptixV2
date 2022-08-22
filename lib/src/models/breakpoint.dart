@@ -56,14 +56,6 @@ enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
   @override
   String get debugLabel => name;
 
-  static List<GenericResponsiveRule<double>> get testPixelRules => [
-        GenericResponsiveRule(xSmall.key, 1),
-        GenericResponsiveRule(small.key, 1),
-        GenericResponsiveRule(medium.key, 1),
-        GenericResponsiveRule(tablet.key, 1),
-        GenericResponsiveRule(desktop.key, 1)
-      ];
-
   const CanonicalResponsiveBreakpoint(this.value, this.key);
 }
 
