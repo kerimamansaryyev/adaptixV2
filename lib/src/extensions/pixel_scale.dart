@@ -6,6 +6,7 @@ extension PixelScaleExtension on num {
     final adaptix = Adaptix.of(context);
     final genericSwitch = adaptix.configs.pixelScaleSwitch;
     return genericSwitch.getValueAccordingtoBreakpoint(adaptix.breakpoint) *
-        this;
+        this *
+        adaptix.configs.globalPixelScaleFactor;
   }
 }

@@ -25,6 +25,33 @@ Size _getSquareSize(WidgetTester tester) {
 }
 
 void main() {
+  testWidgets('Global pixel scale must change .adaptedPx value',
+      (tester) async {
+    var device = TestDeviceMock.phone;
+    changeOrientation(
+        orientation: Orientation.portrait,
+        smallSide: device.smallestSide,
+        wideSide: device.biggestSide,
+        tester: tester);
+    final appKey = GlobalKey<InitializerTestAppState>();
+    await tester.pumpWidget(InitializerTestApp(
+      key: appKey,
+    ));
+    _setMockConfigs(appKey);
+    _changeConfigs(
+        AdaptixConfigs(
+            breakpoints: TestDeviceModeMock.breakpoints,
+            pixelScaleRules: TestDeviceModeMock.pixelScaleRules,
+            globalPixelScaleFactor: 2,
+            strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth),
+        appKey);
+    await tester.pumpAndSettle();
+    expect(
+        _getSquareSize(tester).width,
+        InitializerTestApp.squareSizeMultiplier *
+            device.portrait.breakpointPixelScale *
+            2);
+  });
   testWidgets('Must change pixel scale on layout change', (tester) async {
     var device = TestDeviceMock.phone;
     changeOrientation(

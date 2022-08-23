@@ -25,6 +25,10 @@ final listHasMoreItemsButSame = AdaptixConfigs(breakpoints: const [
   ResponsiveBreakpoint(value: 120, key: 'mobile'),
   ResponsiveBreakpoint(value: 121, key: 'mobile')
 ], strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth);
+final scaleFactorDiffers = AdaptixConfigs(
+    breakpoints: const [ResponsiveBreakpoint(value: 120, key: 'mobile')],
+    strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth,
+    globalPixelScaleFactor: 2);
 
 void main() {
   test('$AdaptixConfigs equality', () {
@@ -33,6 +37,7 @@ void main() {
     expect(configs.isSameAs(listDiffers), false);
     expect(listHasSameValues.breakpoints.length, 1);
     expect(listHasMoreItemsButSame.isSameAs(listHasSameValues), false);
+    expect(configs.isSameAs(scaleFactorDiffers), false);
   });
   test('Assertion must be triggered if breakpoints list is emty', () {
     expect(() => AdaptixConfigs(breakpoints: const []), throwsAssertionError);
