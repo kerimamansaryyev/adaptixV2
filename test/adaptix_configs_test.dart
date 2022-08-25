@@ -39,7 +39,7 @@ void main() {
     expect(listHasMoreItemsButSame.isSameAs(listHasSameValues), false);
     expect(configs.isSameAs(scaleFactorDiffers), false);
   });
-  test('Assertion must be triggered if breakpoints list is emty', () {
+  test('Assertion must be triggered if the breakpoints list is emty', () {
     expect(() => AdaptixConfigs(breakpoints: const []), throwsAssertionError);
   });
   test(

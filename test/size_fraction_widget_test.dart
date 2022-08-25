@@ -16,7 +16,9 @@ Size _getSquare2(WidgetTester tester) {
 }
 
 void main() {
-  testWidgets('Testing .widthFraction and .heightFraction', (tester) async {
+  testWidgets(
+      '.widthFraction and .heightFraction must return fractions of full width or height respectively',
+      (tester) async {
     var device = TestDeviceMock.phone;
     changeOrientation(
         orientation: Orientation.portrait,
@@ -36,7 +38,8 @@ void main() {
     expect(_getSquare1(tester).width, 0.5 * device.landscape.breakpoint);
     expect(_getSquare1(tester).height, 0.5 * device.portrait.breakpoint);
   });
-  testWidgets('Testing .shortestSideFraction and .longestSideFraction',
+  testWidgets(
+      '.shortestSideFraction and .longestSideFraction must return fractions of shortest or longest side respectively',
       (tester) async {
     var device = TestDeviceMock.phone;
     changeOrientation(
