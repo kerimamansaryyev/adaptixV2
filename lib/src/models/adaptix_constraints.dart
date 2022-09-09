@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:adaptix/src/extensions/pixel_scale.dart';
 import 'package:adaptix/src/models/adaptix_configs.dart';
 import 'package:adaptix/src/models/breakpoint.dart';
 import 'package:adaptix/src/utils/comparable.dart';

@@ -1,8 +1,6 @@
 import 'package:adaptix/src/models/adaptix_configs.dart';
-import 'package:adaptix/src/models/adaptix_constraints.dart';
 import 'package:adaptix/src/models/generic_switch.dart';
 import 'package:adaptix/src/utils/comparable.dart';
-import 'package:adaptix/src/widgets/adaptix_initializer.dart';
 import 'package:meta/meta.dart';
 
 /// Canonical preset that includes 4 device types.
