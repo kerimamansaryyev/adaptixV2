@@ -13,8 +13,11 @@ void main() {
     });
     test('Filtering and removing non-unique rules', () {
       final genericSwitch = GenericResponsiveSwitch(
-          const GenericResponsiveSwitchArgs(
-              defaultValue: 1, rules: [rule1, rule2, rule3]));
+        const GenericResponsiveSwitchArgs(
+          defaultValue: 1,
+          rules: [rule1, rule2, rule3],
+        ),
+      );
       expect(genericSwitch.rulesTest.length, 2);
     });
   });
@@ -22,10 +25,18 @@ void main() {
     test('Equality of generic switch is managed as default by Dart', () {
       const rule1 = GenericResponsiveRule('mobile', 1);
       const rule2 = GenericResponsiveRule('mobile', 1);
-      final switch1 = GenericResponsiveSwitch(const GenericResponsiveSwitchArgs(
-          defaultValue: 1, rules: [rule1, rule2]));
-      final switch2 = GenericResponsiveSwitch(const GenericResponsiveSwitchArgs(
-          defaultValue: 1, rules: [rule1, rule2]));
+      final switch1 = GenericResponsiveSwitch(
+        const GenericResponsiveSwitchArgs(
+          defaultValue: 1,
+          rules: [rule1, rule2],
+        ),
+      );
+      final switch2 = GenericResponsiveSwitch(
+        const GenericResponsiveSwitchArgs(
+          defaultValue: 1,
+          rules: [rule1, rule2],
+        ),
+      );
       expect(switch1 != switch2, true);
     });
   });

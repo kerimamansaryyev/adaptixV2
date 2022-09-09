@@ -8,14 +8,18 @@ import 'utils/utils.dart';
 
 void _setMockConfigs(GlobalKey<InitializerTestAppState> key) {
   _changeConfigs(
-      AdaptixConfigs(
-          breakpoints: TestDeviceModeMock.breakpoints,
-          pixelScaleRules: TestDeviceModeMock.pixelScaleRules),
-      key);
+    AdaptixConfigs(
+      breakpoints: TestDeviceModeMock.breakpoints,
+      pixelScaleRules: TestDeviceModeMock.pixelScaleRules,
+    ),
+    key,
+  );
 }
 
 void _changeConfigs(
-    AdaptixConfigs newConfigs, GlobalKey<InitializerTestAppState> key) {
+  AdaptixConfigs newConfigs,
+  GlobalKey<InitializerTestAppState> key,
+) {
   key.currentState?.changeAdaptixConfigs(newConfigs);
 }
 
@@ -24,99 +28,120 @@ Size _getSquareSize(WidgetTester tester) {
   return tester.getSize(square);
 }
 
+// It's okay to igonre the lints on test
+// ignore: long-method
 void main() {
   testWidgets('Global pixel scale must change .adaptedPx value',
       (tester) async {
-    var device = TestDeviceMock.phone;
+    const device = TestDeviceMock.phone;
     changeOrientation(
-        orientation: Orientation.portrait,
-        smallSide: device.smallestSide,
-        wideSide: device.biggestSide,
-        tester: tester);
+      orientation: Orientation.portrait,
+      smallSide: device.smallestSide,
+      wideSide: device.biggestSide,
+      tester: tester,
+    );
     final appKey = GlobalKey<InitializerTestAppState>();
-    await tester.pumpWidget(InitializerTestApp(
-      key: appKey,
-    ));
+    await tester.pumpWidget(
+      InitializerTestApp(
+        key: appKey,
+      ),
+    );
     _setMockConfigs(appKey);
     _changeConfigs(
-        AdaptixConfigs(
-            breakpoints: TestDeviceModeMock.breakpoints,
-            pixelScaleRules: TestDeviceModeMock.pixelScaleRules,
-            globalPixelScaleFactor: 2,
-            strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth),
-        appKey);
+      AdaptixConfigs(
+        breakpoints: TestDeviceModeMock.breakpoints,
+        pixelScaleRules: TestDeviceModeMock.pixelScaleRules,
+        globalPixelScaleFactor: 2,
+        strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth,
+      ),
+      appKey,
+    );
     await tester.pumpAndSettle();
     expect(
-        _getSquareSize(tester).width,
-        InitializerTestApp.squareSizeMultiplier *
-            device.portrait.breakpointPixelScale *
-            2);
+      _getSquareSize(tester).width,
+      InitializerTestApp.squareSizeMultiplier *
+          device.portrait.breakpointPixelScale *
+          2,
+    );
   });
   testWidgets('Must change pixel scale on layout change', (tester) async {
     var device = TestDeviceMock.phone;
     changeOrientation(
-        orientation: Orientation.portrait,
-        smallSide: device.smallestSide,
-        wideSide: device.biggestSide,
-        tester: tester);
+      orientation: Orientation.portrait,
+      smallSide: device.smallestSide,
+      wideSide: device.biggestSide,
+      tester: tester,
+    );
     final appKey = GlobalKey<InitializerTestAppState>();
-    await tester.pumpWidget(InitializerTestApp(
-      key: appKey,
-    ));
+    await tester.pumpWidget(
+      InitializerTestApp(
+        key: appKey,
+      ),
+    );
     _setMockConfigs(appKey);
     await tester.pumpAndSettle();
     expect(
-        _getSquareSize(tester).width,
-        InitializerTestApp.squareSizeMultiplier *
-            device.portrait.breakpointPixelScale);
+      _getSquareSize(tester).width,
+      InitializerTestApp.squareSizeMultiplier *
+          device.portrait.breakpointPixelScale,
+    );
     device = TestDeviceMock.tablet;
     changeDevice(device, tester);
     await tester.pumpAndSettle();
     expect(
-        _getSquareSize(tester).width,
-        InitializerTestApp.squareSizeMultiplier *
-            device.portrait.breakpointPixelScale);
+      _getSquareSize(tester).width,
+      InitializerTestApp.squareSizeMultiplier *
+          device.portrait.breakpointPixelScale,
+    );
     device = TestDeviceMock.desktop;
     changeOrientation(
-        orientation: Orientation.landscape,
-        smallSide: device.smallestSide,
-        wideSide: device.biggestSide,
-        tester: tester);
+      orientation: Orientation.landscape,
+      smallSide: device.smallestSide,
+      wideSide: device.biggestSide,
+      tester: tester,
+    );
     await tester.pumpAndSettle();
     expect(
-        _getSquareSize(tester).width,
-        InitializerTestApp.squareSizeMultiplier *
-            device.landscape.breakpointPixelScale);
+      _getSquareSize(tester).width,
+      InitializerTestApp.squareSizeMultiplier *
+          device.landscape.breakpointPixelScale,
+    );
     expect(getAdaptix(tester).data.orientation, Orientation.landscape);
   });
   testWidgets('Must change pixel scale on orientation changed', (tester) async {
     const device = TestDeviceMock.phone;
     changeOrientation(
-        orientation: Orientation.portrait,
-        smallSide: device.smallestSide,
-        wideSide: device.biggestSide,
-        tester: tester);
+      orientation: Orientation.portrait,
+      smallSide: device.smallestSide,
+      wideSide: device.biggestSide,
+      tester: tester,
+    );
     final appKey = GlobalKey<InitializerTestAppState>();
-    await tester.pumpWidget(InitializerTestApp(
-      key: appKey,
-    ));
+    await tester.pumpWidget(
+      InitializerTestApp(
+        key: appKey,
+      ),
+    );
     _setMockConfigs(appKey);
     await tester.pumpAndSettle();
     expect(
-        _getSquareSize(tester).width,
-        InitializerTestApp.squareSizeMultiplier *
-            device.portrait.breakpointPixelScale);
+      _getSquareSize(tester).width,
+      InitializerTestApp.squareSizeMultiplier *
+          device.portrait.breakpointPixelScale,
+    );
     expect(getAdaptix(tester).data.orientation, Orientation.portrait);
     changeOrientation(
-        orientation: Orientation.landscape,
-        smallSide: device.smallestSide,
-        wideSide: device.biggestSide,
-        tester: tester);
+      orientation: Orientation.landscape,
+      smallSide: device.smallestSide,
+      wideSide: device.biggestSide,
+      tester: tester,
+    );
     await tester.pumpAndSettle();
     expect(
-        _getSquareSize(tester).width,
-        InitializerTestApp.squareSizeMultiplier *
-            device.landscape.breakpointPixelScale);
+      _getSquareSize(tester).width,
+      InitializerTestApp.squareSizeMultiplier *
+          device.landscape.breakpointPixelScale,
+    );
     expect(getAdaptix(tester).data.orientation, Orientation.landscape);
   });
   testWidgets(
@@ -124,48 +149,59 @@ void main() {
       (tester) async {
     const device = TestDeviceMock.phone;
     changeOrientation(
-        orientation: Orientation.portrait,
-        smallSide: device.smallestSide,
-        wideSide: device.biggestSide,
-        tester: tester);
+      orientation: Orientation.portrait,
+      smallSide: device.smallestSide,
+      wideSide: device.biggestSide,
+      tester: tester,
+    );
     final appKey = GlobalKey<InitializerTestAppState>();
-    await tester.pumpWidget(InitializerTestApp(
-      key: appKey,
-    ));
+    await tester.pumpWidget(
+      InitializerTestApp(
+        key: appKey,
+      ),
+    );
     _changeConfigs(
-        AdaptixConfigs(
-            breakpoints: TestDeviceModeMock.breakpoints,
-            pixelScaleRules: TestDeviceModeMock.pixelScaleRules,
-            strategy: DeviceBreakpointDecisionStrategy.useShortestSide),
-        appKey);
+      AdaptixConfigs(
+        breakpoints: TestDeviceModeMock.breakpoints,
+        pixelScaleRules: TestDeviceModeMock.pixelScaleRules,
+        strategy: DeviceBreakpointDecisionStrategy.useShortestSide,
+      ),
+      appKey,
+    );
     await tester.pumpAndSettle();
     expect(
-        _getSquareSize(tester).width,
-        InitializerTestApp.squareSizeMultiplier *
-            device.portrait.breakpointPixelScale);
+      _getSquareSize(tester).width,
+      InitializerTestApp.squareSizeMultiplier *
+          device.portrait.breakpointPixelScale,
+    );
     expect(getAdaptix(tester).data.orientation, Orientation.portrait);
     changeOrientation(
-        orientation: Orientation.landscape,
-        smallSide: device.smallestSide,
-        wideSide: device.biggestSide,
-        tester: tester);
+      orientation: Orientation.landscape,
+      smallSide: device.smallestSide,
+      wideSide: device.biggestSide,
+      tester: tester,
+    );
     await tester.pumpAndSettle();
     expect(
-        _getSquareSize(tester).width,
-        InitializerTestApp.squareSizeMultiplier *
-            device.portrait.breakpointPixelScale);
+      _getSquareSize(tester).width,
+      InitializerTestApp.squareSizeMultiplier *
+          device.portrait.breakpointPixelScale,
+    );
     expect(getAdaptix(tester).data.orientation, Orientation.landscape);
     _changeConfigs(
-        AdaptixConfigs(
-            breakpoints: TestDeviceModeMock.breakpoints,
-            pixelScaleRules: TestDeviceModeMock.pixelScaleRules,
-            strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth),
-        appKey);
+      AdaptixConfigs(
+        breakpoints: TestDeviceModeMock.breakpoints,
+        pixelScaleRules: TestDeviceModeMock.pixelScaleRules,
+        strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth,
+      ),
+      appKey,
+    );
     await tester.pumpAndSettle();
     expect(
-        _getSquareSize(tester).width,
-        InitializerTestApp.squareSizeMultiplier *
-            device.landscape.breakpointPixelScale);
+      _getSquareSize(tester).width,
+      InitializerTestApp.squareSizeMultiplier *
+          device.landscape.breakpointPixelScale,
+    );
     expect(getAdaptix(tester).data.orientation, Orientation.landscape);
   });
 }

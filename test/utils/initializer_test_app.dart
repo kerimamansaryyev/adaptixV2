@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 
 @visibleForTesting
 class InitializerTestApp extends StatefulWidget {
+  static const squareSizeMultiplier = 50;
   const InitializerTestApp({
     Key? key,
   }) : super(key: key);
-
-  static const squareSizeMultiplier = 50;
 
   @override
   State<InitializerTestApp> createState() => InitializerTestAppState();
@@ -42,32 +41,34 @@ class InitializerTestAppState extends State<InitializerTestApp> {
 
 @visibleForTesting
 class InitializerTestPage extends StatelessWidget {
-  const InitializerTestPage({Key? key, required this.configs})
-      : super(key: key);
-
   final AdaptixConfigs configs;
+  const InitializerTestPage({
+    required this.configs,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AdaptixInitializer(
-        configs: configs,
-        builder: (context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Initializer test'),
+      configs: configs,
+      builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Initializer test'),
+          ),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Center(
+                  child: InitializerTestSquare(),
+                )
+              ],
             ),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Center(
-                    child: InitializerTestSquare(),
-                  )
-                ],
-              ),
-            ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
 

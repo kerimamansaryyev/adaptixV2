@@ -23,9 +23,11 @@ extension ResponsiveBreakpointIterableExtension
   Iterable<ResponsiveBreakpoint> iterableRemoveSame() sync* {
     final found = <ResponsiveBreakpoint>[];
     for (var element in this) {
-      if (found.containsComparable<ResponsiveBreakpoint>((elementPred) =>
-          elementPred.isSameAs(element) ||
-          elementPred.hasSameValueAs(element))) {
+      if (found.containsComparable<ResponsiveBreakpoint>(
+        (elementPred) =>
+            elementPred.isSameAs(element) ||
+            elementPred.hasSameValueAs(element),
+      )) {
         continue;
       } else {
         found.add(element);

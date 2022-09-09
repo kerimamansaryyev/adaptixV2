@@ -6,15 +6,18 @@ class ResizableMixinConstraints {
   final double height;
   final Orientation orientation;
 
-  const ResizableMixinConstraints(
-      {required this.height, required this.width, required this.orientation});
+  const ResizableMixinConstraints({
+    required this.height,
+    required this.width,
+    required this.orientation,
+  });
 }
 
 mixin ResizableMixin<T extends StatefulWidget> on WidgetsBindingObserver {
   @protected
   Size getSize() {
     final window = WidgetsBinding.instance.window;
-    return (window.physicalSize / window.devicePixelRatio);
+    return window.physicalSize / window.devicePixelRatio;
   }
 
   @protected
@@ -25,16 +28,21 @@ mixin ResizableMixin<T extends StatefulWidget> on WidgetsBindingObserver {
 
   @protected
   Orientation getOrientation() {
-    final Orientation orientation =
-        getWidth() > getHeight() ? Orientation.landscape : Orientation.portrait;
-    return orientation;
+    return getWidth() > getHeight()
+        ? Orientation.landscape
+        : Orientation.portrait;
   }
 
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
-    onConstraintsChanged(ResizableMixinConstraints(
-        height: getHeight(), width: getWidth(), orientation: getOrientation()));
+    onConstraintsChanged(
+      ResizableMixinConstraints(
+        height: getHeight(),
+        width: getWidth(),
+        orientation: getOrientation(),
+      ),
+    );
   }
 
   @protected

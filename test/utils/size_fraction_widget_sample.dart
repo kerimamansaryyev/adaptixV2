@@ -9,31 +9,33 @@ class TestSizeFractionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: AdaptixInitializer(
-            configs: const AdaptixConfigs.canonical(),
-            builder: (context) {
-              return Scaffold(
-                appBar: AppBar(
-                  title: const Text('Initializer test'),
-                ),
-                body: Center(
-                  child: ListView(
-                    children: const [
-                      Center(
-                        child: TestSizeFractionSquareWidget(),
-                      ),
-                      Center(
-                        child: TestLongestShortestSideWidget(),
-                      )
-                    ],
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: AdaptixInitializer(
+        configs: const AdaptixConfigs.canonical(),
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Initializer test'),
+            ),
+            body: Center(
+              child: ListView(
+                children: const [
+                  Center(
+                    child: TestSizeFractionSquareWidget(),
                   ),
-                ),
-              );
-            }));
+                  Center(
+                    child: TestLongestShortestSideWidget(),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
 

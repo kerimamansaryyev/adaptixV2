@@ -4,31 +4,44 @@ import 'package:adaptix/src/models/generic_switch.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 final configs = AdaptixConfigs(
-    breakpoints: const [ResponsiveBreakpoint(value: 120, key: 'mobile')],
-    strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth);
+  breakpoints: const [ResponsiveBreakpoint(value: 120, key: 'mobile')],
+  strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth,
+);
 final same = AdaptixConfigs(
-    breakpoints: const [ResponsiveBreakpoint(value: 120, key: 'mobile')],
-    strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth);
+  breakpoints: const [ResponsiveBreakpoint(value: 120, key: 'mobile')],
+  strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth,
+);
 final strategyDiffers = AdaptixConfigs(
-    breakpoints: const [ResponsiveBreakpoint(value: 120, key: 'mobile')],
-    strategy: DeviceBreakpointDecisionStrategy.useShortestSide);
-final listDiffers = AdaptixConfigs(breakpoints: const [
-  ResponsiveBreakpoint(value: 120, key: 'mobile'),
-  ResponsiveBreakpoint(value: 121, key: 'mobile')
-], strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth);
-final listHasSameValues = AdaptixConfigs(breakpoints: const [
-  ResponsiveBreakpoint(value: 120, key: 'mobile'),
-  ResponsiveBreakpoint(value: 120, key: 'mobile')
-], strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth);
-final listHasMoreItemsButSame = AdaptixConfigs(breakpoints: const [
-  ResponsiveBreakpoint(value: 120, key: 'mobile'),
-  ResponsiveBreakpoint(value: 120, key: 'mobile'),
-  ResponsiveBreakpoint(value: 121, key: 'mobile')
-], strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth);
+  breakpoints: const [ResponsiveBreakpoint(value: 120, key: 'mobile')],
+  strategy: DeviceBreakpointDecisionStrategy.useShortestSide,
+);
+final listDiffers = AdaptixConfigs(
+  breakpoints: const [
+    ResponsiveBreakpoint(value: 120, key: 'mobile'),
+    ResponsiveBreakpoint(value: 121, key: 'mobile')
+  ],
+  strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth,
+);
+final listHasSameValues = AdaptixConfigs(
+  breakpoints: const [
+    ResponsiveBreakpoint(value: 120, key: 'mobile'),
+    ResponsiveBreakpoint(value: 120, key: 'mobile')
+  ],
+  strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth,
+);
+final listHasMoreItemsButSame = AdaptixConfigs(
+  breakpoints: const [
+    ResponsiveBreakpoint(value: 120, key: 'mobile'),
+    ResponsiveBreakpoint(value: 120, key: 'mobile'),
+    ResponsiveBreakpoint(value: 121, key: 'mobile')
+  ],
+  strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth,
+);
 final scaleFactorDiffers = AdaptixConfigs(
-    breakpoints: const [ResponsiveBreakpoint(value: 120, key: 'mobile')],
-    strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth,
-    globalPixelScaleFactor: 2);
+  breakpoints: const [ResponsiveBreakpoint(value: 120, key: 'mobile')],
+  strategy: DeviceBreakpointDecisionStrategy.useOriginalWidth,
+  globalPixelScaleFactor: 2,
+);
 
 void main() {
   test('$AdaptixConfigs equality', () {
@@ -45,7 +58,9 @@ void main() {
   test(
       'Canonical constructor must contain $CanonicPixelResponsiveScaleSwitch for pixel scaling',
       () {
-    expect(const AdaptixConfigs.canonical().pixelScaleSwitch,
-        const CanonicPixelResponsiveScaleSwitch());
+    expect(
+      const AdaptixConfigs.canonical().pixelScaleSwitch,
+      const CanonicPixelResponsiveScaleSwitch(),
+    );
   });
 }

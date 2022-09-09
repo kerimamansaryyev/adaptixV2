@@ -6,7 +6,8 @@ extension GenericRuleIterableExtension on Iterable<GenericResponsiveRule> {
     final found = <GenericResponsiveRule>[];
     for (var element in this) {
       if (found.containsComparable<GenericResponsiveRule>(
-          (elementPred) => elementPred.isSameAs(element))) {
+        (elementPred) => elementPred.isSameAs(element),
+      )) {
         continue;
       } else {
         found.add(element);

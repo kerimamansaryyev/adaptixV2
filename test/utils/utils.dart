@@ -13,11 +13,12 @@ void changeDevice(TestDeviceMock mock, WidgetTester tester) {
 Adaptix getAdaptix(WidgetTester tester) =>
     tester.widget(find.byType(Adaptix)) as Adaptix;
 
-void changeOrientation(
-    {required Orientation orientation,
-    required double smallSide,
-    required double wideSide,
-    required WidgetTester tester}) {
+void changeOrientation({
+  required Orientation orientation,
+  required double smallSide,
+  required double wideSide,
+  required WidgetTester tester,
+}) {
   tester.binding.window.devicePixelRatioTestValue = 1.0;
   switch (orientation) {
     case Orientation.portrait:

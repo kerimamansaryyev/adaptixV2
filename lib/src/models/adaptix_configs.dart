@@ -9,49 +9,56 @@ enum DeviceBreakpointDecisionStrategy { useShortestSide, useOriginalWidth }
 
 @immutable
 class AdaptixConfigs with ArgsComparisonMixin {
+  static const List<CanonicalResponsiveBreakpoint> canonicalBreakpoints =
+      CanonicalResponsiveBreakpoint.values;
+
   final DeviceBreakpointDecisionStrategy strategy;
   final List<ResponsiveBreakpoint> breakpoints;
   final GenericResponsiveSwitch<double> pixelScaleSwitch;
   final double globalPixelScaleFactor;
 
-  static const List<CanonicalResponsiveBreakpoint> canonicalBreakpoints =
-      CanonicalResponsiveBreakpoint.values;
-
-  const AdaptixConfigs._(
-      {required this.strategy,
-      required this.breakpoints,
-      required this.globalPixelScaleFactor,
-      required this.pixelScaleSwitch});
-
-  const AdaptixConfigs.canonical(
-      {DeviceBreakpointDecisionStrategy strategy =
-          DeviceBreakpointDecisionStrategy.useOriginalWidth,
-      double globalPixelScaleFactor = 1})
-      : this._(
-            globalPixelScaleFactor: globalPixelScaleFactor,
-            strategy: strategy,
-            breakpoints: canonicalBreakpoints,
-            pixelScaleSwitch: const CanonicPixelResponsiveScaleSwitch());
-
-  factory AdaptixConfigs(
-      {DeviceBreakpointDecisionStrategy strategy =
-          DeviceBreakpointDecisionStrategy.useOriginalWidth,
-      List<GenericResponsiveRule<double>> pixelScaleRules = const [],
-      double defaultPixelScale = 1,
-      double globalPixelScaleFactor = 1,
-      required List<ResponsiveBreakpoint> breakpoints}) {
+  factory AdaptixConfigs({
+    required List<ResponsiveBreakpoint> breakpoints,
+    DeviceBreakpointDecisionStrategy strategy =
+        DeviceBreakpointDecisionStrategy.useOriginalWidth,
+    List<GenericResponsiveRule<double>> pixelScaleRules = const [],
+    double defaultPixelScale = 1,
+    double globalPixelScaleFactor = 1,
+  }) {
     assert(breakpoints.isNotEmpty);
     return AdaptixConfigs._(
-        strategy: strategy,
-        globalPixelScaleFactor: globalPixelScaleFactor,
-        pixelScaleSwitch: GenericResponsiveSwitch<double>(
-            GenericResponsiveSwitchArgs(
-                defaultValue: defaultPixelScale, rules: pixelScaleRules)),
-        breakpoints: breakpoints
-            .iterableRemoveSame()
-            .sorted((a, b) => a.value.compareTo(b.value))
-            .toList());
+      strategy: strategy,
+      globalPixelScaleFactor: globalPixelScaleFactor,
+      pixelScaleSwitch: GenericResponsiveSwitch<double>(
+        GenericResponsiveSwitchArgs(
+          defaultValue: defaultPixelScale,
+          rules: pixelScaleRules,
+        ),
+      ),
+      breakpoints: breakpoints
+          .iterableRemoveSame()
+          .sorted((a, b) => a.value.compareTo(b.value))
+          .toList(),
+    );
   }
+
+  const AdaptixConfigs._({
+    required this.strategy,
+    required this.breakpoints,
+    required this.globalPixelScaleFactor,
+    required this.pixelScaleSwitch,
+  });
+
+  const AdaptixConfigs.canonical({
+    DeviceBreakpointDecisionStrategy strategy =
+        DeviceBreakpointDecisionStrategy.useOriginalWidth,
+    double globalPixelScaleFactor = 1,
+  }) : this._(
+          globalPixelScaleFactor: globalPixelScaleFactor,
+          strategy: strategy,
+          breakpoints: canonicalBreakpoints,
+          pixelScaleSwitch: const CanonicPixelResponsiveScaleSwitch(),
+        );
 
   @override
   bool isSameAs(ArgsComparisonMixin other) {

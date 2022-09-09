@@ -9,7 +9,9 @@ enum TestDeviceMock {
   phone(TestDeviceModeMock.phonePortrait, TestDeviceModeMock.phoneLandscape),
   tablet(TestDeviceModeMock.tabletPortrait, TestDeviceModeMock.tabletLandscape),
   desktop(
-      TestDeviceModeMock.desktopPortrait, TestDeviceModeMock.desktopLandscape);
+    TestDeviceModeMock.desktopPortrait,
+    TestDeviceModeMock.desktopLandscape,
+  );
 
   final TestDeviceModeMock portrait;
   final TestDeviceModeMock landscape;
@@ -42,6 +44,8 @@ enum TestDeviceModeMock {
           GenericResponsiveRule(value.name, value.breakpointPixelScale)
       ];
 
-  const TestDeviceModeMock(
-      {required this.breakpoint, required this.breakpointPixelScale});
+  const TestDeviceModeMock({
+    required this.breakpoint,
+    required this.breakpointPixelScale,
+  });
 }

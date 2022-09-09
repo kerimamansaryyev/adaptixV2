@@ -4,7 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:collection/collection.dart';
 
 const _listEquality = ListEquality();
-
+// It's okay to ignore the lints on test
+// ignore: long-method
 void main() {
   test('Testing breakpoint equality', () {
     const breakpoint = ResponsiveBreakpoint(value: 120, key: 'mobile');
@@ -20,8 +21,9 @@ void main() {
 
   test('Test transequality between canonical breakpoint and non-canonical', () {
     final nonCanonical = ResponsiveBreakpoint(
-        value: CanonicalResponsiveBreakpoint.small.value,
-        key: CanonicalResponsiveBreakpoint.small.key);
+      value: CanonicalResponsiveBreakpoint.small.value,
+      key: CanonicalResponsiveBreakpoint.small.key,
+    );
     expect(nonCanonical.isSameAs(CanonicalResponsiveBreakpoint.small), true);
   });
 
@@ -32,8 +34,9 @@ void main() {
       const ResponsiveBreakpoint(value: 120, key: 'mobile1'),
       const ResponsiveBreakpoint(value: 121, key: 'mobile'),
       ResponsiveBreakpoint(
-          value: CanonicalResponsiveBreakpoint.small.value,
-          key: CanonicalResponsiveBreakpoint.small.key),
+        value: CanonicalResponsiveBreakpoint.small.value,
+        key: CanonicalResponsiveBreakpoint.small.key,
+      ),
       CanonicalResponsiveBreakpoint.small
     ].iterableRemoveSame();
     expect(breakpoints.length, 3);
@@ -45,22 +48,32 @@ void main() {
           .map((element) => element.name)
           .toList();
       expect(
-          _listEquality.equals(vObjectKeys,
-              CanonicalResponsiveBreakpoint.canonicalBreakpointKeys),
-          true);
-      expect(CanonicalResponsiveBreakpoint.canonicalBreakpointKeys.length,
-          vObjectKeys.length);
+        _listEquality.equals(
+          vObjectKeys,
+          CanonicalResponsiveBreakpoint.canonicalBreakpointKeys,
+        ),
+        true,
+      );
+      expect(
+        CanonicalResponsiveBreakpoint.canonicalBreakpointKeys.length,
+        vObjectKeys.length,
+      );
     });
     test('Keys match with value-object name', () {
       final vObjectKeys = CanonicalResponsiveBreakpoint.values
           .map((element) => element.name)
           .toList();
       expect(
-          _listEquality.equals(vObjectKeys,
-              CanonicalResponsiveBreakpoint.canonicalBreakpointKeys),
-          true);
-      expect(CanonicalResponsiveBreakpoint.canonicalBreakpointKeys.length,
-          vObjectKeys.length);
+        _listEquality.equals(
+          vObjectKeys,
+          CanonicalResponsiveBreakpoint.canonicalBreakpointKeys,
+        ),
+        true,
+      );
+      expect(
+        CanonicalResponsiveBreakpoint.canonicalBreakpointKeys.length,
+        vObjectKeys.length,
+      );
     });
     test('Rules keys match with value-object names', () {
       final vObjectKeys = CanonicalResponsiveBreakpoint.values
@@ -83,17 +96,19 @@ void main() {
     });
 
     test('Pixel scales number matches with number of value objects', () {
-      expect(CanonicalResponsiveBreakpoint.values.length,
-          CanonicalResponsiveBreakpoint.canonicalPixelScales.length);
+      expect(
+        CanonicalResponsiveBreakpoint.values.length,
+        CanonicalResponsiveBreakpoint.canonicalPixelScales.length,
+      );
     });
 
     test('Rules number matches with number of value objects', () {
       expect(
-          CanonicalResponsiveBreakpoint.createCanonicalSwitchArguments(
-                  defaultValue: 1)
-              .rules
-              .length,
-          CanonicalResponsiveBreakpoint.values.length);
+        CanonicalResponsiveBreakpoint.createCanonicalSwitchArguments(
+          defaultValue: 1,
+        ).rules.length,
+        CanonicalResponsiveBreakpoint.values.length,
+      );
     });
   });
 }

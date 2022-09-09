@@ -9,12 +9,14 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class AdaptixInitializer extends StatefulWidget with ArgsComparisonMixin {
-  const AdaptixInitializer(
-      {Key? key, required this.configs, required this.builder})
-      : super(key: key);
-
   final AdaptixConfigs configs;
   final WidgetBuilder builder;
+
+  const AdaptixInitializer({
+    required this.configs,
+    required this.builder,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AdaptixInitializer> createState() => _AdaptixInitializerState();
@@ -28,33 +30,6 @@ class AdaptixInitializer extends StatefulWidget with ArgsComparisonMixin {
 class _AdaptixInitializerState extends State<AdaptixInitializer>
     with WidgetsBindingObserver, ResizableMixin {
   late AdaptixConstraints _constraints;
-
-  void _setConstraints({double? width, bool forceSet = false}) {
-    ResponsiveBreakpoint breakpoint;
-    if (width != null) {
-      breakpoint = widget.configs.breakpoints.detectBreakpoint(width);
-    } else {
-      breakpoint = _constraints.breakpoint;
-    }
-    final newConstraints = AdaptixConstraints(
-        configs: widget.configs,
-        size: getSize(),
-        breakpoint: breakpoint,
-        orientation: getOrientation());
-    if (forceSet || !newConstraints.isSameAs(_constraints)) {
-      _constraints = newConstraints;
-      setState(() {});
-    }
-  }
-
-  double _getBreakpointSide() {
-    switch (widget.configs.strategy) {
-      case DeviceBreakpointDecisionStrategy.useShortestSide:
-        return math.min(getWidth(), getHeight());
-      case DeviceBreakpointDecisionStrategy.useOriginalWidth:
-        return getWidth();
-    }
-  }
 
   @override
   void didUpdateWidget(covariant AdaptixInitializer oldWidget) {
@@ -85,5 +60,33 @@ class _AdaptixInitializerState extends State<AdaptixInitializer>
   @override
   void onConstraintsChanged(ResizableMixinConstraints constraints) {
     _setConstraints(width: _getBreakpointSide());
+  }
+
+  void _setConstraints({double? width, bool forceSet = false}) {
+    ResponsiveBreakpoint breakpoint;
+    if (width != null) {
+      breakpoint = widget.configs.breakpoints.detectBreakpoint(width);
+    } else {
+      breakpoint = _constraints.breakpoint;
+    }
+    final newConstraints = AdaptixConstraints(
+      configs: widget.configs,
+      size: getSize(),
+      breakpoint: breakpoint,
+      orientation: getOrientation(),
+    );
+    if (forceSet || !newConstraints.isSameAs(_constraints)) {
+      _constraints = newConstraints;
+      setState(() {});
+    }
+  }
+
+  double _getBreakpointSide() {
+    switch (widget.configs.strategy) {
+      case DeviceBreakpointDecisionStrategy.useShortestSide:
+        return math.min(getWidth(), getHeight());
+      case DeviceBreakpointDecisionStrategy.useOriginalWidth:
+        return getWidth();
+    }
   }
 }

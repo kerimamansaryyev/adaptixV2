@@ -21,20 +21,24 @@ enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
   static const tabletPixelScale = 1.2;
   static const desktopPixelScale = 1.25;
 
-  static GenericResponsiveSwitchArgs<T> createCanonicalSwitchArguments<T>(
-      {required T defaultValue,
-      T? xSmall,
-      T? small,
-      T? medium,
-      T? tablet,
-      T? desktop}) {
-    return GenericResponsiveSwitchArgs<T>(defaultValue: defaultValue, rules: [
-      GenericResponsiveRule(xSmallKey, xSmall ?? defaultValue),
-      GenericResponsiveRule(smallKey, small ?? defaultValue),
-      GenericResponsiveRule(mediumKey, medium ?? defaultValue),
-      GenericResponsiveRule(tabletKey, tablet ?? defaultValue),
-      GenericResponsiveRule(desktopKey, desktop ?? defaultValue)
-    ]);
+  static GenericResponsiveSwitchArgs<T> createCanonicalSwitchArguments<T>({
+    required T defaultValue,
+    T? xSmall,
+    T? small,
+    T? medium,
+    T? tablet,
+    T? desktop,
+  }) {
+    return GenericResponsiveSwitchArgs<T>(
+      defaultValue: defaultValue,
+      rules: [
+        GenericResponsiveRule(xSmallKey, xSmall ?? defaultValue),
+        GenericResponsiveRule(smallKey, small ?? defaultValue),
+        GenericResponsiveRule(mediumKey, medium ?? defaultValue),
+        GenericResponsiveRule(tabletKey, tablet ?? defaultValue),
+        GenericResponsiveRule(desktopKey, desktop ?? defaultValue)
+      ],
+    );
   }
 
   @visibleForTesting
@@ -95,17 +99,22 @@ enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
 
 @immutable
 class ResponsiveBreakpoint with ArgsComparisonMixin {
-  final double value;
-  final String? debugLabel;
-  final String key;
-
-  const ResponsiveBreakpoint(
-      {required this.value, required this.key, this.debugLabel});
-
   static const ResponsiveBreakpoint none =
       ResponsiveBreakpoint(value: 0, key: noneResponsiveBreakpointKey);
 
   static const noneResponsiveBreakpointKey = 'none';
+  final double value;
+  final String? debugLabel;
+  final String key;
+
+  const ResponsiveBreakpoint({
+    required this.value,
+    required this.key,
+    this.debugLabel,
+  });
+
+  @override
+  int get hashCode => Object.hashAll([value.hashCode, key.hashCode]);
 
   @override
   bool isSameAs(ArgsComparisonMixin other) {
@@ -117,9 +126,6 @@ class ResponsiveBreakpoint with ArgsComparisonMixin {
   @override
   bool operator ==(other) =>
       other is ResponsiveBreakpoint && hashCode == other.hashCode;
-
-  @override
-  int get hashCode => Object.hashAll([value.hashCode, key.hashCode]);
 
   bool hasSameValueAs(ResponsiveBreakpoint other) => other.value == value;
 }

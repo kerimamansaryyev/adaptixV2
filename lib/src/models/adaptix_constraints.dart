@@ -12,11 +12,12 @@ class AdaptixConstraints with ArgsComparisonMixin {
   final Orientation orientation;
   final Size size;
 
-  const AdaptixConstraints(
-      {required this.breakpoint,
-      required this.orientation,
-      required this.size,
-      required this.configs});
+  const AdaptixConstraints({
+    required this.breakpoint,
+    required this.orientation,
+    required this.size,
+    required this.configs,
+  });
 
   double get shortestSide => min(size.width, size.height);
   double get longestSide => max(size.width, size.height);

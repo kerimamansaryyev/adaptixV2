@@ -3,9 +3,8 @@ import 'package:adaptix/src/utils/assertions.dart';
 import 'package:flutter/widgets.dart';
 
 class Adaptix extends InheritedWidget {
-  const Adaptix({required this.data, required super.child, super.key});
-
   final AdaptixConstraints data;
+  const Adaptix({required this.data, required super.child, super.key});
 
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) {
