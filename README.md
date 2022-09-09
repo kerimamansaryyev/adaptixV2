@@ -1,39 +1,43 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# adaptix
+A powerful and lightweight package for building beautiful responsive and adaptive applications.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
+# Usage
+1. Wrap your widget subtree (usually, the starting point of your app) with `AdaptixInitializer` and pass an instance of `AdaptixConfigs` to `configs` parameter.
 ```dart
-const like = 'sample';
+ AdaptixInitializer(
+        configs: const AdaptixConfigs.canonical(),
+        builder: (context) {
+          return  MaterialApp(
+            home: ...
+          );
+    });
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+2. And access data through a `BuildContext`. You can access `AdaptixConstraints` with `Adaptix.of(context)` or use the extension methods designed for pretty semantics.
+```dart
+AdaptixInitializer(
+        configs: const AdaptixConfigs.canonical(),
+        builder: (context) {
+          // Accessing adaptix
+          print(Adaptix.of(context));
+          return MaterialApp(
+            home: Scaffold(
+              appBar: AppBar(
+                title: Text(widget.title),
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      color: Colors.red,
+                      width: 50.adaptedPx(context),
+                      height: 50.adaptedPx(context),
+                      child: Text('${50.adaptedPx(context).round()} px'),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+```

@@ -2,6 +2,7 @@ import 'package:adaptix/src/extensions/comparison.dart';
 import 'package:adaptix/src/models/generic_switch.dart';
 
 extension GenericRuleIterableExtension on Iterable<GenericResponsiveRule> {
+  /// Removes identical elements from this iterable
   Iterable<GenericResponsiveRule> iterableRemoveSame() sync* {
     final found = <GenericResponsiveRule>[];
     for (var element in this) {

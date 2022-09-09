@@ -34,21 +34,23 @@ class _MyHomePageState extends State<MyHomePage> {
     return AdaptixInitializer(
         configs: const AdaptixConfigs.canonical(),
         builder: (context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(widget.title),
-            ),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    color: Colors.red,
-                    width: 50.adaptedPx(context),
-                    height: 50.adaptedPx(context),
-                    child: Text('${50.adaptedPx(context).round()} px'),
-                  )
-                ],
+          return MaterialApp(
+            home: Scaffold(
+              appBar: AppBar(
+                title: Text(widget.title),
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      color: Colors.red,
+                      width: 50.adaptedPx(context),
+                      height: 50.adaptedPx(context),
+                      child: Text('${50.adaptedPx(context).round()} px'),
+                    )
+                  ],
+                ),
               ),
             ),
           );

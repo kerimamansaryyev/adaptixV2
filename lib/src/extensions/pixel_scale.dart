@@ -2,11 +2,8 @@ import 'package:adaptix/src/widgets/adaptix.dart';
 import 'package:flutter/widgets.dart';
 
 extension PixelScaleExtension on num {
-  double adaptedPx(BuildContext context) {
-    final adaptix = Adaptix.of(context);
-    final genericSwitch = adaptix.configs.pixelScaleSwitch;
-    return genericSwitch.getValueAccordingtoBreakpoint(adaptix.breakpoint) *
-        this *
-        adaptix.configs.globalPixelScaleFactor;
-  }
+  /// Returns a pixel scale according to the current breakpoint of [Adaptix] of [context]
+  /// multiplied by this num
+  double adaptedPx(BuildContext context) =>
+      this * Adaptix.of(context).pixelScale;
 }

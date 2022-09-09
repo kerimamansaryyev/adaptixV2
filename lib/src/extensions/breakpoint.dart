@@ -4,6 +4,7 @@ import 'package:adaptix/src/models/breakpoint.dart';
 
 extension ResponsiveBreakpointIterableExtension
     on Iterable<ResponsiveBreakpoint> {
+  /// Detect a breakpoint according to [deviceWidth]
   ResponsiveBreakpoint detectBreakpoint(num deviceWidth) {
     if (isEmpty) {
       throw ResponsiveBreakpointsListEmptyException();
@@ -20,6 +21,7 @@ extension ResponsiveBreakpointIterableExtension
     return last;
   }
 
+  /// Removes identical breakpoints from this iterable.
   Iterable<ResponsiveBreakpoint> iterableRemoveSame() sync* {
     final found = <ResponsiveBreakpoint>[];
     for (var element in this) {

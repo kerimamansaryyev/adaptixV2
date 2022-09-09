@@ -1,7 +1,16 @@
+import 'package:adaptix/src/models/adaptix_configs.dart';
+import 'package:adaptix/src/models/adaptix_constraints.dart';
 import 'package:adaptix/src/models/generic_switch.dart';
 import 'package:adaptix/src/utils/comparable.dart';
+import 'package:adaptix/src/widgets/adaptix_initializer.dart';
 import 'package:meta/meta.dart';
 
+/// Canonical preset that includes 4 device types.
+///
+/// Usually, the [values] are used inside of [AdaptixConfigs.canonical].
+///
+/// **Note:** If you declare your own configs via [AdaptixConfigs.new], see [canonicalPixelScaleRules]
+/// to implement your own pixel scale rules for the [values].
 enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
   xSmall(280, xSmallKey),
   small(320, smallKey),
@@ -21,6 +30,7 @@ enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
   static const tabletPixelScale = 1.2;
   static const desktopPixelScale = 1.25;
 
+  @visibleForTesting
   static GenericResponsiveSwitchArgs<T> createCanonicalSwitchArguments<T>({
     required T defaultValue,
     T? xSmall,
@@ -67,6 +77,7 @@ enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
     GenericResponsiveRule(desktopKey, desktopPixelScale)
   ];
 
+  /// A map of rules that is passed to [CanonicPixelResponsiveScaleSwitch] in [AdaptixConfigs.canonical]
   static const canonicalRulesRaw = <String, double>{
     xSmallKey: xSmallPixelScale,
     smallKey: smallPixelScale,
@@ -97,12 +108,9 @@ enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
   const CanonicalResponsiveBreakpoint(this.value, this.key);
 }
 
+/// A class that is used to declare layout types based on [value] and identified by [key].
 @immutable
 class ResponsiveBreakpoint with ArgsComparisonMixin {
-  static const ResponsiveBreakpoint none =
-      ResponsiveBreakpoint(value: 0, key: noneResponsiveBreakpointKey);
-
-  static const noneResponsiveBreakpointKey = 'none';
   final double value;
   final String? debugLabel;
   final String key;
