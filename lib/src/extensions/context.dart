@@ -4,8 +4,6 @@ import 'package:flutter/widgets.dart';
 
 extension ResponsiveSwitchExtension on BuildContext {
   /// Uses [GenericResponsiveSwitch.getValueAccordingtoBreakpoint] passing the breakpoints of [Adaptix] from this context.
-  T responsiveSwitch<T>(GenericResponsiveSwitchArgs<T> arguments) {
-    return GenericResponsiveSwitch<T>(arguments)
-        .getValueAccordingtoBreakpoint(Adaptix.of(this).breakpoint);
-  }
+  T responsiveSwitch<T>(GenericResponsiveSwitchArgs<T> arguments) =>
+      Adaptix.of(this).responsiveSwitch(arguments);
 }

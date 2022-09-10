@@ -28,7 +28,6 @@ enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
   static const tabletPixelScale = 1.2;
   static const desktopPixelScale = 1.25;
 
-  @visibleForTesting
   static GenericResponsiveSwitchArgs<T> createCanonicalSwitchArguments<T>({
     required T defaultValue,
     T? xSmall,
@@ -85,7 +84,7 @@ enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
   };
 
   @override
-  final double value;
+  final double templateDeviceWidth;
 
   @override
   final String key;
@@ -93,39 +92,50 @@ enum CanonicalResponsiveBreakpoint implements ResponsiveBreakpoint {
   @override
   bool isSameAs(ArgsComparisonMixin other) {
     return other is ResponsiveBreakpoint &&
-        other.value == value &&
+        other.templateDeviceWidth == templateDeviceWidth &&
         other.key == key;
   }
 
   @override
-  bool hasSameValueAs(ResponsiveBreakpoint other) => other.value == value;
+  bool hasSameValueAs(ResponsiveBreakpoint other) =>
+      other.templateDeviceWidth == templateDeviceWidth;
 
   @override
   String get debugLabel => name;
 
-  const CanonicalResponsiveBreakpoint(this.value, this.key);
+  @override
+  @Deprecated('This member is deprecated. Use templateDeviceWidth instead')
+  final double? value = null;
+
+  const CanonicalResponsiveBreakpoint(this.templateDeviceWidth, this.key);
 }
 
-/// A class that is used to declare layout types based on [value] and identified by [key].
+/// A class that is used to declare layout types based on [templateDeviceWidth] and identified by [key].
 @immutable
 class ResponsiveBreakpoint with ArgsComparisonMixin {
-  final double value;
+  @Deprecated('This member is deprecated. Use templateDeviceWidth instead')
+  final double? value;
+
+  final double templateDeviceWidth;
   final String? debugLabel;
   final String key;
 
   const ResponsiveBreakpoint({
-    required this.value,
+    required this.templateDeviceWidth,
     required this.key,
+    @Deprecated('This field is ignored. Defile templateDeviceWidth instead')
+        this.value,
     this.debugLabel,
   });
 
   @override
-  int get hashCode => Object.hashAll([value.hashCode, key.hashCode]);
+  int get hashCode =>
+      Object.hashAll([templateDeviceWidth.hashCode, key.hashCode]);
 
   @override
   bool isSameAs(ArgsComparisonMixin other) {
     return other is ResponsiveBreakpoint &&
-        other.value == value &&
+        other.templateDeviceWidth == templateDeviceWidth &&
         other.key == key;
   }
 
@@ -133,5 +143,6 @@ class ResponsiveBreakpoint with ArgsComparisonMixin {
   bool operator ==(other) =>
       other is ResponsiveBreakpoint && hashCode == other.hashCode;
 
-  bool hasSameValueAs(ResponsiveBreakpoint other) => other.value == value;
+  bool hasSameValueAs(ResponsiveBreakpoint other) =>
+      other.templateDeviceWidth == templateDeviceWidth;
 }

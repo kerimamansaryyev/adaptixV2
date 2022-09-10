@@ -8,37 +8,43 @@ void main() {
   test('Testing $AdaptixConstraints equality', () {
     final constraints = AdaptixConstraints(
       size: const Size(800, 400),
-      breakpoint: const ResponsiveBreakpoint(value: 120, key: 'mobile'),
+      breakpoint:
+          const ResponsiveBreakpoint(templateDeviceWidth: 120, key: 'mobile'),
       orientation: Orientation.landscape,
       configs: adaptix_configs_test.configs,
     );
     final same = AdaptixConstraints(
       size: const Size(800, 400),
-      breakpoint: const ResponsiveBreakpoint(value: 120, key: 'mobile'),
+      breakpoint:
+          const ResponsiveBreakpoint(templateDeviceWidth: 120, key: 'mobile'),
       orientation: Orientation.landscape,
       configs: adaptix_configs_test.configs,
     );
     final orientationDiffers = AdaptixConstraints(
       size: const Size(800, 400),
-      breakpoint: const ResponsiveBreakpoint(value: 120, key: 'mobile'),
+      breakpoint:
+          const ResponsiveBreakpoint(templateDeviceWidth: 120, key: 'mobile'),
       orientation: Orientation.portrait,
       configs: adaptix_configs_test.configs,
     );
     final breakpointDiffers = AdaptixConstraints(
       size: const Size(800, 400),
-      breakpoint: const ResponsiveBreakpoint(value: 120, key: 'tablet'),
+      breakpoint:
+          const ResponsiveBreakpoint(templateDeviceWidth: 120, key: 'tablet'),
       orientation: Orientation.landscape,
       configs: adaptix_configs_test.configs,
     );
     final configsDiffers = AdaptixConstraints(
       size: const Size(800, 400),
-      breakpoint: const ResponsiveBreakpoint(value: 120, key: 'mobile'),
+      breakpoint:
+          const ResponsiveBreakpoint(templateDeviceWidth: 120, key: 'mobile'),
       orientation: Orientation.landscape,
       configs: adaptix_configs_test.listHasMoreItemsButSame,
     );
     final sizeDiffers = AdaptixConstraints(
       size: const Size(700, 400),
-      breakpoint: const ResponsiveBreakpoint(value: 120, key: 'mobile'),
+      breakpoint:
+          const ResponsiveBreakpoint(templateDeviceWidth: 120, key: 'mobile'),
       orientation: Orientation.landscape,
       configs: adaptix_configs_test.listHasMoreItemsButSame,
     );

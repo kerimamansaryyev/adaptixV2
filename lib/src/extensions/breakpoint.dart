@@ -8,12 +8,12 @@ extension ResponsiveBreakpointIterableExtension
   ResponsiveBreakpoint detectBreakpoint(num deviceWidth) {
     if (isEmpty) {
       throw ResponsiveBreakpointsListEmptyException();
-    } else if (deviceWidth < first.value) {
+    } else if (deviceWidth < first.templateDeviceWidth) {
       return first;
     }
 
     for (int i = 1; i < length; i++) {
-      if (deviceWidth < elementAt(i).value) {
+      if (deviceWidth < elementAt(i).templateDeviceWidth) {
         return elementAt(i - 1);
       }
     }

@@ -37,7 +37,7 @@ class AdaptixConfigs with ArgsComparisonMixin {
 
   /// A class for creating custom configuration of a layout constraints.
   /// Arguments:
-  /// - [breakpoints] - a list of [ResponsiveBreakpoint], where [ResponsiveBreakpoint.value] means a point at what [AdaptixInitializer] decides
+  /// - [breakpoints] - a list of [ResponsiveBreakpoint], where [ResponsiveBreakpoint.templateDeviceWidth] means a point at what [AdaptixInitializer] decides
   /// changing [Adaptix] constraints according to [strategy]
   /// - [strategy] - see [DeviceBreakpointDecisionStrategy].
   /// - [pixelScaleRules] - list of [GenericResponsiveRule] where [GenericResponsiveRule.responsiveBreakpointKey] of each element must be set accordingly to
@@ -65,7 +65,9 @@ class AdaptixConfigs with ArgsComparisonMixin {
       ),
       breakpoints: breakpoints
           .iterableRemoveSame()
-          .sorted((a, b) => a.value.compareTo(b.value))
+          .sorted(
+            (a, b) => a.templateDeviceWidth.compareTo(b.templateDeviceWidth),
+          )
           .toList(),
     );
   }

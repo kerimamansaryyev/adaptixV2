@@ -8,11 +8,15 @@ const _listEquality = ListEquality();
 // ignore: long-method
 void main() {
   test('Testing breakpoint equality', () {
-    const breakpoint = ResponsiveBreakpoint(value: 120, key: 'mobile');
-    const same = ResponsiveBreakpoint(value: 120, key: 'mobile');
-    const valueDiffers = ResponsiveBreakpoint(value: 121, key: 'mobile');
-    const keyDiffers = ResponsiveBreakpoint(value: 120, key: 'tablet');
-    const bothDiffers = ResponsiveBreakpoint(value: 121, key: 'tablet');
+    const breakpoint =
+        ResponsiveBreakpoint(templateDeviceWidth: 120, key: 'mobile');
+    const same = ResponsiveBreakpoint(templateDeviceWidth: 120, key: 'mobile');
+    const valueDiffers =
+        ResponsiveBreakpoint(templateDeviceWidth: 121, key: 'mobile');
+    const keyDiffers =
+        ResponsiveBreakpoint(templateDeviceWidth: 120, key: 'tablet');
+    const bothDiffers =
+        ResponsiveBreakpoint(templateDeviceWidth: 121, key: 'tablet');
     expect(breakpoint.isSameAs(valueDiffers), false);
     expect(breakpoint.isSameAs(same), true);
     expect(breakpoint.isSameAs(keyDiffers), false);
@@ -21,7 +25,8 @@ void main() {
 
   test('Test transequality between canonical breakpoint and non-canonical', () {
     final nonCanonical = ResponsiveBreakpoint(
-      value: CanonicalResponsiveBreakpoint.small.value,
+      templateDeviceWidth:
+          CanonicalResponsiveBreakpoint.small.templateDeviceWidth,
       key: CanonicalResponsiveBreakpoint.small.key,
     );
     expect(nonCanonical.isSameAs(CanonicalResponsiveBreakpoint.small), true);
@@ -29,12 +34,13 @@ void main() {
 
   test('Must return only unique elements from iterable', () {
     final breakpoints = [
-      const ResponsiveBreakpoint(value: 120, key: 'mobile'),
-      const ResponsiveBreakpoint(value: 120, key: 'mobile'),
-      const ResponsiveBreakpoint(value: 120, key: 'mobile1'),
-      const ResponsiveBreakpoint(value: 121, key: 'mobile'),
+      const ResponsiveBreakpoint(templateDeviceWidth: 120, key: 'mobile'),
+      const ResponsiveBreakpoint(templateDeviceWidth: 120, key: 'mobile'),
+      const ResponsiveBreakpoint(templateDeviceWidth: 120, key: 'mobile1'),
+      const ResponsiveBreakpoint(templateDeviceWidth: 121, key: 'mobile'),
       ResponsiveBreakpoint(
-        value: CanonicalResponsiveBreakpoint.small.value,
+        templateDeviceWidth:
+            CanonicalResponsiveBreakpoint.small.templateDeviceWidth,
         key: CanonicalResponsiveBreakpoint.small.key,
       ),
       CanonicalResponsiveBreakpoint.small

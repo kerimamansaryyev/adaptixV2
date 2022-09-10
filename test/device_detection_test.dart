@@ -17,8 +17,9 @@ void main() {
     test(
         'value <= ${CanonicalResponsiveBreakpoint.xSmall.debugLabel}  => ${CanonicalResponsiveBreakpoint.xSmall.debugLabel}',
         () {
-      final smaller = CanonicalResponsiveBreakpoint.xSmall.value - 1;
-      final equal = CanonicalResponsiveBreakpoint.xSmall.value;
+      final smaller =
+          CanonicalResponsiveBreakpoint.xSmall.templateDeviceWidth - 1;
+      final equal = CanonicalResponsiveBreakpoint.xSmall.templateDeviceWidth;
       expect(
         sampleBreakpoints.detectBreakpoint(smaller),
         CanonicalResponsiveBreakpoint.xSmall,
@@ -31,8 +32,9 @@ void main() {
     test(
         'value >= ${CanonicalResponsiveBreakpoint.small.debugLabel} && value < ${CanonicalResponsiveBreakpoint.medium.debugLabel}  => ${CanonicalResponsiveBreakpoint.small.debugLabel}',
         () {
-      final smaller = CanonicalResponsiveBreakpoint.small.value - 1;
-      final equal = CanonicalResponsiveBreakpoint.small.value;
+      final smaller =
+          CanonicalResponsiveBreakpoint.small.templateDeviceWidth - 1;
+      final equal = CanonicalResponsiveBreakpoint.small.templateDeviceWidth;
       expect(
         sampleBreakpoints.detectBreakpoint(smaller),
         CanonicalResponsiveBreakpoint.xSmall,
@@ -45,8 +47,9 @@ void main() {
     test(
         'value >= ${CanonicalResponsiveBreakpoint.medium.debugLabel} && value < ${CanonicalResponsiveBreakpoint.tablet.debugLabel}  => ${CanonicalResponsiveBreakpoint.medium.debugLabel}',
         () {
-      final smaller = CanonicalResponsiveBreakpoint.medium.value - 1;
-      final equal = CanonicalResponsiveBreakpoint.medium.value;
+      final smaller =
+          CanonicalResponsiveBreakpoint.medium.templateDeviceWidth - 1;
+      final equal = CanonicalResponsiveBreakpoint.medium.templateDeviceWidth;
       expect(
         sampleBreakpoints.detectBreakpoint(smaller),
         CanonicalResponsiveBreakpoint.small,
@@ -59,8 +62,9 @@ void main() {
     test(
         'value >= ${CanonicalResponsiveBreakpoint.tablet.debugLabel} && value < ${CanonicalResponsiveBreakpoint.desktop.debugLabel}  => ${CanonicalResponsiveBreakpoint.tablet.debugLabel}',
         () {
-      final smaller = CanonicalResponsiveBreakpoint.tablet.value - 1;
-      final equal = CanonicalResponsiveBreakpoint.tablet.value;
+      final smaller =
+          CanonicalResponsiveBreakpoint.tablet.templateDeviceWidth - 1;
+      final equal = CanonicalResponsiveBreakpoint.tablet.templateDeviceWidth;
       expect(
         sampleBreakpoints.detectBreakpoint(smaller),
         CanonicalResponsiveBreakpoint.medium,
@@ -73,8 +77,9 @@ void main() {
     test(
         'value >= ${CanonicalResponsiveBreakpoint.desktop.debugLabel} && value < ${CanonicalResponsiveBreakpoint.tablet.debugLabel}  => ${CanonicalResponsiveBreakpoint.desktop.debugLabel}',
         () {
-      final smaller = CanonicalResponsiveBreakpoint.desktop.value - 1;
-      final equal = CanonicalResponsiveBreakpoint.desktop.value;
+      final smaller =
+          CanonicalResponsiveBreakpoint.desktop.templateDeviceWidth - 1;
+      final equal = CanonicalResponsiveBreakpoint.desktop.templateDeviceWidth;
       expect(
         sampleBreakpoints.detectBreakpoint(smaller),
         CanonicalResponsiveBreakpoint.tablet,
@@ -89,7 +94,7 @@ void main() {
         () {
       expect(
         sampleBreakpoints.detectBreakpoint(
-          CanonicalResponsiveBreakpoint.desktop.value + 1,
+          CanonicalResponsiveBreakpoint.desktop.templateDeviceWidth + 1,
         ),
         CanonicalResponsiveBreakpoint.desktop,
       );

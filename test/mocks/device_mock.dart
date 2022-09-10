@@ -36,7 +36,10 @@ enum TestDeviceModeMock {
 
   static List<ResponsiveBreakpoint> get breakpoints => [
         for (var value in values)
-          ResponsiveBreakpoint(value: value.breakpoint, key: value.name)
+          ResponsiveBreakpoint(
+            templateDeviceWidth: value.breakpoint,
+            key: value.name,
+          )
       ];
 
   static List<GenericResponsiveRule<double>> get pixelScaleRules => [

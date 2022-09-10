@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:adaptix/src/models/adaptix_configs.dart';
 import 'package:adaptix/src/models/breakpoint.dart';
+import 'package:adaptix/src/models/generic_switch.dart';
 import 'package:adaptix/src/utils/comparable.dart';
 import 'package:adaptix/src/widgets/adaptix.dart';
 import 'package:flutter/widgets.dart';
@@ -41,6 +42,11 @@ class AdaptixConstraints with ArgsComparisonMixin {
     return genericSwitch.getValueAccordingtoBreakpoint(breakpoint) *
         1 *
         configs.globalPixelScaleFactor;
+  }
+
+  T responsiveSwitch<T>(GenericResponsiveSwitchArgs<T> arguments) {
+    return GenericResponsiveSwitch<T>(arguments)
+        .getValueAccordingtoBreakpoint(breakpoint);
   }
 
   @override
