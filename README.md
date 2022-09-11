@@ -108,7 +108,7 @@ Gives a percent fraction of the device's longest side
 // means 50 percent of the longest side of the device
 print(50.longestSideFraction(context));
 ```
-### .resposiveSwitch on `context`
+### .responsiveSwitch on `context`
 Do you want to display some widget according to a current breakpoint or maybe to display some text instead? This extension method allows to return a generic value of type `T` according to a current breakpoint of `Adaptix`.
 ```dart
 AdaptixInitializer(
