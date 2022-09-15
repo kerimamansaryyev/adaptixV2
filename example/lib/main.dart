@@ -117,11 +117,17 @@ class _MyHomePageState extends State<MyHomePage> {
                       width: 50.adaptedPx(context),
                       height: 50.adaptedPx(context),
                       child: Text(context.responsiveSwitch(
-                          MyResposivenessPattern.myResponsiveSwitchArguments(
+                          MyResposivenessPattern.myResponsiveSwitchArguments<
+                                  String>(
                               defaultValue: 'Unrecognized device pattern',
                               iphone7Value: 'iphone7 device pattern',
                               iphone11Value: 'iphone11 device pattern',
                               ipadMiniValue: 'ipadMini device pattern'))),
+                    ),
+                    SizedBox(
+                      child: Text(context.orientationSwitch<String>(
+                          onLandscape: 'Landscape text',
+                          onPortrait: 'Portrait text')),
                     )
                   ],
                 ),

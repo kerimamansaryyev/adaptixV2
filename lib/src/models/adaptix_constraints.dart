@@ -49,6 +49,16 @@ class AdaptixConstraints with ArgsComparisonMixin {
         .getValueAccordingtoBreakpoint(breakpoint);
   }
 
+  /// Returns an object of type [T] according to [orientation]
+  T orientationSwitch<T>({required T onLandscape, required T onPortrait}) {
+    switch (orientation) {
+      case Orientation.portrait:
+        return onPortrait;
+      case Orientation.landscape:
+        return onLandscape;
+    }
+  }
+
   @override
   bool isSameAs(ArgsComparisonMixin other) {
     return other is AdaptixConstraints &&

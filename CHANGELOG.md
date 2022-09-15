@@ -1,3 +1,5 @@
+## 0.0.5
+Added new `.orientationSwitch` method to the context extensions. 
 ## 0.0.3
 
 * Added more information to the documentation.
