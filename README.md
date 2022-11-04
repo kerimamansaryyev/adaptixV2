@@ -192,15 +192,14 @@ context.responsiveSwitch(CanonicalResponsiveBreakpoint
 It's recommended to implement the value object pattern using this package for an elegant semantics and maintainable architecture. For that purpose you can use enhanced enums that come out of the box with `Dart 2.17`. Example:
 ```dart
 enum MyResposivenessPattern implements ResponsiveBreakpoint {
-  iphone7(templateDeviceWidth: 375, pixelScale: 1),
   iphone11(templateDeviceWidth: 414, pixelScale: 1.1),
+  iphone7(templateDeviceWidth: 375, pixelScale: 1),
   ipadMini(templateDeviceWidth: 768, pixelScale: 1.12),
   someDesktopDevice(templateDeviceWidth: 1024, pixelScale: 1.2);
 
-  static final myPixelScaleRules = MyResposivenessPattern.values
-      .map<GenericResponsiveRule<double>>((devicePattern) =>
-          GenericResponsiveRule(devicePattern.key, devicePattern.pixelScale))
-      .toList();
+  static final myPixelScaleRules = {
+    for (var value in values) value.key: value.pixelScale,
+  };
 
   @override
   final double templateDeviceWidth;
@@ -219,45 +218,38 @@ enum MyResposivenessPattern implements ResponsiveBreakpoint {
 
   @override
   bool isSameAs(ArgsComparisonMixin other) {
-    return other is ResponsiveBreakpoint &&
-        other.templateDeviceWidth == templateDeviceWidth &&
-        other.key == key;
+    return ResponsiveBreakpoint.breakpointEquality(
+      this,
+      other,
+    );
   }
 
   /// key as a name of an element of this enum
   @override
   String get key => name;
 
-  // helpful to pass it into .responsiveSwitch extension method's argument parameter to make everything predictable.
   static GenericResponsiveSwitchArgs<T> myResponsiveSwitchArguments<T>(
       {required T defaultValue,
       T? iphone7Value,
       T? iphone11Value,
       T? ipadMiniValue,
       T? someDesktopDeviceValue}) {
-    final ruleValues = [
-      iphone7Value,
-      iphone11Value,
-      ipadMiniValue,
-      someDesktopDeviceValue
-    ];
-    return GenericResponsiveSwitchArgs<T>(defaultValue: defaultValue, rules: [
-      for (int i = 0;
-          i < min(MyResposivenessPattern.values.length, ruleValues.length);
-          i++)
-        GenericResponsiveRule(
-            MyResposivenessPattern.values[i].key, ruleValues[i] ?? defaultValue)
-    ]);
+    return GenericResponsiveSwitchArgs(
+      defaultValue: defaultValue,
+      rules: {
+        iphone7.key: iphone7Value ?? defaultValue,
+        iphone11.key: iphone11Value ?? defaultValue,
+        ipadMini.key: ipadMiniValue ?? defaultValue,
+        someDesktopDevice.key: someDesktopDeviceValue ?? defaultValue,
+      },
+    );
   }
 
   static AdaptixConfigs configs() => AdaptixConfigs(
       breakpoints: MyResposivenessPattern.values,
       pixelScaleRules: MyResposivenessPattern.myPixelScaleRules);
-
-  /// deprecated, implement as null
-  @override
-  double? get value => null;
 }
+
 ```
 
 And use it as:

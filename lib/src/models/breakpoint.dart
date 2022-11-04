@@ -149,9 +149,7 @@ class ResponsiveBreakpoint with ArgsComparisonMixin {
 
   @override
   bool isSameAs(ArgsComparisonMixin other) {
-    return other is ResponsiveBreakpoint &&
-        other.templateDeviceWidth == templateDeviceWidth &&
-        other.key == key;
+    return ResponsiveBreakpoint.breakpointEquality(this, other);
   }
 
   @override
@@ -160,4 +158,9 @@ class ResponsiveBreakpoint with ArgsComparisonMixin {
 
   bool hasSameValueAs(ResponsiveBreakpoint other) =>
       other.templateDeviceWidth == templateDeviceWidth;
+
+  static bool breakpointEquality(ResponsiveBreakpoint a, dynamic other) =>
+      other is ResponsiveBreakpoint &&
+      other.templateDeviceWidth == a.templateDeviceWidth &&
+      other.key == a.key;
 }
