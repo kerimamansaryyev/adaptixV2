@@ -40,8 +40,7 @@ class AdaptixConfigs with ArgsComparisonMixin {
   /// - [breakpoints] - a list of [ResponsiveBreakpoint], where [ResponsiveBreakpoint.templateDeviceWidth] means a point at what [AdaptixInitializer] decides
   /// changing [Adaptix] constraints according to [strategy]
   /// - [strategy] - see [DeviceBreakpointDecisionStrategy].
-  /// - [pixelScaleRules] - list of [GenericResponsiveRule] where [GenericResponsiveRule.responsiveBreakpointKey] of each element must be set accordingly to
-  /// respective breakpoint of [breakpoints].
+  /// - [pixelScaleRules] - A [Map] with [String] key that corresponds to the breakpoint key and [double] value that represents a pixel scale to the breakpoint.
   /// - [defaultPixelScale] - if [pixelScaleSwitch] can not find respective value for [AdaptixConstraints.breakpoint] of a context through its rules, it will use
   /// this value as a pixel scale.
   /// - [globalPixelScaleFactor] - [AdaptixConstraints.breakpoint] of a context will be multiplied by this value so you can change pixel scale globally.
@@ -49,7 +48,7 @@ class AdaptixConfigs with ArgsComparisonMixin {
     required List<ResponsiveBreakpoint> breakpoints,
     DeviceBreakpointDecisionStrategy strategy =
         DeviceBreakpointDecisionStrategy.useOriginalWidth,
-    List<GenericResponsiveRule<double>> pixelScaleRules = const [],
+    Map<String, double> pixelScaleRules = const {},
     double defaultPixelScale = 1,
     double globalPixelScaleFactor = 1,
   }) {

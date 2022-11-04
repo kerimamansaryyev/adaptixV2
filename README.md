@@ -70,11 +70,11 @@ AdaptixConfigs(
           ],
 
           /// Define pixel scale rule per breakpoint
-          pixelScaleRules: const [
-            GenericResponsiveRule('iphone7', 1),
-            GenericResponsiveRule('iphone11', 1.1),
-            GenericResponsiveRule('ipadMini', 1.2),
-          ],
+          pixelScaleRules: const {
+            'iphone7': 1,
+            'iphone11': 1.1,
+            'ipadMini': 1.2,
+          },
         )
 ```
 # Extension methods
@@ -132,12 +132,12 @@ AdaptixInitializer(
             ResponsiveBreakpoint(templateDeviceWidth: 768, key: 'ipadMini'),
           ],
 
-          /// Define pixel scale rule per breakpoint
-          pixelScaleRules: const [
-            GenericResponsiveRule('iphone7', 1),
-            GenericResponsiveRule('iphone11', 1.1),
-            GenericResponsiveRule('ipadMini', 1.2),
-          ],
+          /// Define pixel scale rule per breakpoint.
+          pixelScaleRules: const {
+            'iphone7': 1,
+            'iphone11': 1.1,
+            'ipadMini': 1.2,
+          },
         ),
         builder: (context) {
           return MaterialApp(
@@ -153,18 +153,21 @@ AdaptixInitializer(
                       color: Colors.red,
                       width: 50.adaptedPx(context),
                       height: 50.adaptedPx(context),
-                      child: Text(context.responsiveSwitch(
+                      child: Text(
+                        context.responsiveSwitch(
                           const GenericResponsiveSwitchArgs<String>(
-                              defaultValue: 'This is a default text',
-                              rules: [
-                            GenericResponsiveRule('iphone7',
-                                'Hello, I am a pattern based on width of iphone7'),
-                            GenericResponsiveRule('iphone11',
-                                'Hello, I am a pattern based on dimensions of iphone11'),
-                            GenericResponsiveRule('ipadMini',
-                                'Hello, I am a pattern based on dimensions of ipadMini'),
-                          ]))),
-                    )
+                            defaultValue: 'This is a default text',
+                            rules: const {
+                              'iphone7': 'Hello, I am a pattern based on width of iphone7',
+                              'iphone11':
+                                  'Hello, I am a pattern based on dimensions of iphone11',
+                              'ipadMini':
+                                  'Hello, I am a pattern based on dimensions of ipadMini',
+                            },
+                          ),
+                        ),
+                      ),
+                    );
                   ],
                 ),
               ),

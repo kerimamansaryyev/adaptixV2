@@ -81,25 +81,6 @@ void main() {
         vObjectKeys.length,
       );
     });
-    test('Rules keys match with value-object names', () {
-      final vObjectKeys = CanonicalResponsiveBreakpoint.values
-          .map((element) => element.name)
-          .toList();
-      final ruleKeys = CanonicalResponsiveBreakpoint.canonicalPixelScaleRules
-          .map((element) => element.responsiveBreakpointKey)
-          .toList();
-      expect(_listEquality.equals(vObjectKeys, ruleKeys), true);
-      expect(ruleKeys.length, vObjectKeys.length);
-    });
-    test('Raw rules keys match with value-object names', () {
-      final vObjectKeys = CanonicalResponsiveBreakpoint.values
-          .map((element) => element.name)
-          .toList();
-      final ruleKeys =
-          CanonicalResponsiveBreakpoint.canonicalRulesRaw.keys.toList();
-      expect(_listEquality.equals(vObjectKeys, ruleKeys), true);
-      expect(ruleKeys.length, vObjectKeys.length);
-    });
 
     test('Pixel scales number matches with number of value objects', () {
       expect(

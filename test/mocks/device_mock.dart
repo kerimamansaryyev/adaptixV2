@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:adaptix/src/models/breakpoint.dart';
-import 'package:adaptix/src/models/generic_switch.dart';
 import 'package:meta/meta.dart';
 
 @visibleForTesting
@@ -42,10 +41,9 @@ enum TestDeviceModeMock {
           )
       ];
 
-  static List<GenericResponsiveRule<double>> get pixelScaleRules => [
-        for (var value in values)
-          GenericResponsiveRule(value.name, value.breakpointPixelScale)
-      ];
+  static Map<String, double> get pixelScaleRules => {
+        for (var value in values) value.name: value.breakpointPixelScale,
+      };
 
   const TestDeviceModeMock({
     required this.breakpoint,

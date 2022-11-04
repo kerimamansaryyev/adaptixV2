@@ -1,6 +1,5 @@
 import 'package:adaptix/src/models/adaptix_configs.dart';
 import 'package:adaptix/src/models/breakpoint.dart';
-import 'package:adaptix/src/models/generic_switch.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 final configs = AdaptixConfigs(
@@ -62,13 +61,5 @@ void main() {
   });
   test('Assertion must be triggered if the breakpoints list is emty', () {
     expect(() => AdaptixConfigs(breakpoints: const []), throwsAssertionError);
-  });
-  test(
-      'Canonical constructor must contain $CanonicPixelResponsiveScaleSwitch for pixel scaling',
-      () {
-    expect(
-      const AdaptixConfigs.canonical().pixelScaleSwitch,
-      const CanonicPixelResponsiveScaleSwitch(),
-    );
   });
 }

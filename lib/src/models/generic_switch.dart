@@ -1,9 +1,10 @@
-import 'package:adaptix/src/extensions/generic_switch.dart';
 import 'package:adaptix/src/models/adaptix_constraints.dart';
 import 'package:adaptix/src/models/breakpoint.dart';
 import 'package:adaptix/src/utils/comparable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:collection/collection.dart' as collection;
+
+typedef GenericResponsiveRulesMap<T> = Map<String, T>;
 
 @immutable
 class CanonicPixelResponsiveScaleSwitch
@@ -11,7 +12,7 @@ class CanonicPixelResponsiveScaleSwitch
   const CanonicPixelResponsiveScaleSwitch()
       : super._(
           defaultValue: 1.0,
-          rules: CanonicalResponsiveBreakpoint.canonicalRulesRaw,
+          rules: CanonicalResponsiveBreakpoint.canonicalPixelScaleRules,
         );
 }
 
@@ -19,11 +20,11 @@ class CanonicPixelResponsiveScaleSwitch
 @immutable
 class GenericResponsiveSwitchArgs<T> {
   final T defaultValue;
-  final List<GenericResponsiveRule<T>> rules;
+  final GenericResponsiveRulesMap<T> rules;
 
   const GenericResponsiveSwitchArgs({
     required this.defaultValue,
-    this.rules = const [],
+    this.rules = const {},
   });
 }
 
@@ -36,12 +37,7 @@ class GenericResponsiveSwitch<T> with ArgsComparisonMixin {
   factory GenericResponsiveSwitch(GenericResponsiveSwitchArgs<T> arguments) =>
       GenericResponsiveSwitch._(
         defaultValue: arguments.defaultValue,
-        rules: <String, T>{
-          for (var rule in arguments.rules
-              .iterableRemoveSame()
-              .cast<GenericResponsiveRule<T>>())
-            rule.responsiveBreakpointKey: rule.value
-        },
+        rules: arguments.rules,
       );
 
   const GenericResponsiveSwitch._({
@@ -68,6 +64,9 @@ class GenericResponsiveSwitch<T> with ArgsComparisonMixin {
 ///
 /// List of [GenericResponsiveRule] is passed to [GenericResponsiveSwitch] to create declarative mechanism of
 /// selecting generic values according to [AdaptixConstraints]
+@Deprecated(
+  'GenericResponsiveRule is deprecated to boost performance. Starting from, 0.1.0 pass Map<String, T> to GenericResponsiveSwitchArgs',
+)
 @immutable
 class GenericResponsiveRule<T> with ArgsComparisonMixin {
   final String responsiveBreakpointKey;

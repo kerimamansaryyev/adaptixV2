@@ -45,7 +45,7 @@ void main() {
       );
     });
     test(
-        'value >= ${CanonicalResponsiveBreakpoint.medium.debugLabel} && value < ${CanonicalResponsiveBreakpoint.tablet.debugLabel}  => ${CanonicalResponsiveBreakpoint.medium.debugLabel}',
+        'value >= ${CanonicalResponsiveBreakpoint.medium.debugLabel} && value < ${CanonicalResponsiveBreakpoint.fablet.debugLabel}  => ${CanonicalResponsiveBreakpoint.medium.debugLabel}',
         () {
       final smaller =
           CanonicalResponsiveBreakpoint.medium.templateDeviceWidth - 1;
@@ -60,6 +60,21 @@ void main() {
       );
     });
     test(
+        'value >= ${CanonicalResponsiveBreakpoint.fablet.debugLabel} && value < ${CanonicalResponsiveBreakpoint.tablet.debugLabel}  => ${CanonicalResponsiveBreakpoint.fablet.debugLabel}',
+        () {
+      final smaller =
+          CanonicalResponsiveBreakpoint.fablet.templateDeviceWidth - 1;
+      final equal = CanonicalResponsiveBreakpoint.fablet.templateDeviceWidth;
+      expect(
+        sampleBreakpoints.detectBreakpoint(smaller),
+        CanonicalResponsiveBreakpoint.medium,
+      );
+      expect(
+        sampleBreakpoints.detectBreakpoint(equal),
+        CanonicalResponsiveBreakpoint.fablet,
+      );
+    });
+    test(
         'value >= ${CanonicalResponsiveBreakpoint.tablet.debugLabel} && value < ${CanonicalResponsiveBreakpoint.desktop.debugLabel}  => ${CanonicalResponsiveBreakpoint.tablet.debugLabel}',
         () {
       final smaller =
@@ -67,7 +82,7 @@ void main() {
       final equal = CanonicalResponsiveBreakpoint.tablet.templateDeviceWidth;
       expect(
         sampleBreakpoints.detectBreakpoint(smaller),
-        CanonicalResponsiveBreakpoint.medium,
+        CanonicalResponsiveBreakpoint.fablet,
       );
       expect(
         sampleBreakpoints.detectBreakpoint(equal),
@@ -75,7 +90,7 @@ void main() {
       );
     });
     test(
-        'value >= ${CanonicalResponsiveBreakpoint.desktop.debugLabel} && value < ${CanonicalResponsiveBreakpoint.tablet.debugLabel}  => ${CanonicalResponsiveBreakpoint.desktop.debugLabel}',
+        'value >= ${CanonicalResponsiveBreakpoint.desktop.debugLabel} => ${CanonicalResponsiveBreakpoint.desktop.debugLabel}',
         () {
       final smaller =
           CanonicalResponsiveBreakpoint.desktop.templateDeviceWidth - 1;
