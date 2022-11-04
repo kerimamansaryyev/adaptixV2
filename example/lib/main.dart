@@ -1,18 +1,15 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:adaptix/adaptix.dart';
 
 enum MyResposivenessPattern implements ResponsiveBreakpoint {
-  iphone7(templateDeviceWidth: 375, pixelScale: 1),
   iphone11(templateDeviceWidth: 414, pixelScale: 1.1),
+  iphone7(templateDeviceWidth: 375, pixelScale: 1),
   ipadMini(templateDeviceWidth: 768, pixelScale: 1.12),
   someDesktopDevice(templateDeviceWidth: 1024, pixelScale: 1.2);
 
-  static final myPixelScaleRules = MyResposivenessPattern.values
-      .map<GenericResponsiveRule<double>>((devicePattern) =>
-          GenericResponsiveRule(devicePattern.key, devicePattern.pixelScale))
-      .toList();
+  static final myPixelScaleRules = {
+    for (var value in values) value.key: value.pixelScale,
+  };
 
   @override
   final double templateDeviceWidth;
@@ -31,9 +28,10 @@ enum MyResposivenessPattern implements ResponsiveBreakpoint {
 
   @override
   bool isSameAs(ArgsComparisonMixin other) {
-    return other is ResponsiveBreakpoint &&
-        other.templateDeviceWidth == templateDeviceWidth &&
-        other.key == key;
+    return ResponsiveBreakpoint.breakpointEquality(
+      this,
+      other,
+    );
   }
 
   /// key as a name of an element of this enum
@@ -46,28 +44,20 @@ enum MyResposivenessPattern implements ResponsiveBreakpoint {
       T? iphone11Value,
       T? ipadMiniValue,
       T? someDesktopDeviceValue}) {
-    final ruleValues = [
-      iphone7Value,
-      iphone11Value,
-      ipadMiniValue,
-      someDesktopDeviceValue
-    ];
-    return GenericResponsiveSwitchArgs<T>(defaultValue: defaultValue, rules: [
-      for (int i = 0;
-          i < min(MyResposivenessPattern.values.length, ruleValues.length);
-          i++)
-        GenericResponsiveRule(
-            MyResposivenessPattern.values[i].key, ruleValues[i] ?? defaultValue)
-    ]);
+    return GenericResponsiveSwitchArgs(
+      defaultValue: defaultValue,
+      rules: {
+        iphone7.key: iphone7Value ?? defaultValue,
+        iphone11.key: iphone11Value ?? defaultValue,
+        ipadMini.key: ipadMiniValue ?? defaultValue,
+        someDesktopDevice.key: someDesktopDeviceValue ?? defaultValue,
+      },
+    );
   }
 
   static AdaptixConfigs configs() => AdaptixConfigs(
       breakpoints: MyResposivenessPattern.values,
       pixelScaleRules: MyResposivenessPattern.myPixelScaleRules);
-
-  /// deprecated, implement as null
-  @override
-  double? get value => null;
 }
 
 void main() {
