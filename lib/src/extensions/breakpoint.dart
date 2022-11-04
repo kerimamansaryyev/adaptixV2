@@ -7,7 +7,7 @@ extension ResponsiveBreakpointIterableExtension
   /// Detect a breakpoint according to [deviceWidth]
   ResponsiveBreakpoint detectBreakpoint(num deviceWidth) {
     if (isEmpty) {
-      throw ResponsiveBreakpointsListEmptyException();
+      throw const ResponsiveBreakpointsListEmptyException();
     } else if (deviceWidth < first.templateDeviceWidth) {
       return first;
     }
